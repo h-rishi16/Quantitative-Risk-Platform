@@ -26,15 +26,24 @@ jobs:
         git log --pretty=format:"- %s" $(git describe --tags --abbrev=0 HEAD^)..HEAD > CHANGELOG.md
     
     - name: Create Release
-      uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        body_path: CHANGELOG.md
-        draft: false
-        prerelease: ${{ contains(github.ref, 'alpha') || contains(github.ref, 'beta') || contains(github.ref, 'rc') }}
+      run: |
+        # Extract tag name from ref
+        TAG_NAME=${GITHUB_REF#refs/tags/}
+        
+        # Check if this is a prerelease
+        if [[ "$TAG_NAME" == *"alpha"* ]] || [[ "$TAG_NAME" == *"beta"* ]] || [[ "$TAG_NAME" == *"rc"* ]]; then
+          PRERELEASE_FLAG="--prerelease"
+        else
+          PRERELEASE_FLAG=""
+        fi
+        
+        # Create release using GitHub CLI
+        gh release create "$TAG_NAME" \
+          --title "Release $TAG_NAME" \
+          --notes-file CHANGELOG.md \
+          $PRERELEASE_FLAG
 
   # Build and push Docker images
   docker-release:
