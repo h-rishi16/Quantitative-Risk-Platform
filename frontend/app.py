@@ -2,15 +2,16 @@
 Streamlit Frontend Application for Risk Modeling Platform with File Upload
 """
 
-import streamlit as st
-import pandas as pd
-import numpy as np
-import plotly.graph_objects as go
-import plotly.express as px
-from typing import Dict, List
-import requests
 import json
 import time
+from typing import Dict, List
+
+import numpy as np
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+import requests
+import streamlit as st
 
 # Configure page
 st.set_page_config(

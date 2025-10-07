@@ -2,11 +2,12 @@
 Data processing utilities for portfolio and returns data
 """
 
-import pandas as pd
-import numpy as np
-from typing import Dict, List, Tuple, Optional
-from io import StringIO
 import logging
+from io import StringIO
+from typing import Dict, List, Optional, Tuple
+
+import numpy as np
+import pandas as pd
 
 logger = logging.getLogger(__name__)
 

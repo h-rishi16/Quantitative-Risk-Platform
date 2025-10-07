@@ -2,15 +2,16 @@
 FastAPI Backend Application for Quantitative Risk Modeling Platform
 """
 
+import logging
+from contextlib import asynccontextmanager
+
+import uvicorn
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
-import uvicorn
-from contextlib import asynccontextmanager
-import logging
 
 # Import routes
-from backend.api.routes import portfolio, risk_analysis, market_data, monte_carlo_api
+from backend.api.routes import market_data, monte_carlo_api, portfolio, risk_analysis
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

@@ -2,11 +2,12 @@
 Simple FastAPI test application to verify setup
 """
 
+from datetime import datetime
+from typing import Any, Dict, List
+
+import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import uvicorn
-from datetime import datetime
-from typing import Dict, List, Any
 
 app = FastAPI(
     title="Quantitative Risk Modeling Platform - Test",

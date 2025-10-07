@@ -4,8 +4,8 @@ Setup script for initializing the Quantitative Risk Platform
 """
 
 import os
-import sys
 import subprocess
+import sys
 from pathlib import Path
 
 

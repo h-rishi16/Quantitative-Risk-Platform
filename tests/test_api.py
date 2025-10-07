@@ -3,6 +3,7 @@ Basic test for the Monte Carlo VaR API
 """
 import pytest
 from fastapi.testclient import TestClient
+
 from simple_main import app
 
 client = TestClient(app)

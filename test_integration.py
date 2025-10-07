@@ -4,10 +4,11 @@ Integration test script for the Quantitative Risk Platform
 Tests both backend API and frontend integration
 """
 
-import requests
 import json
-import time
 import sys
+import time
+
+import requests
 
 
 def test_api_health():

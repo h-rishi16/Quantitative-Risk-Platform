@@ -2,10 +2,11 @@
 Simplified FastAPI Backend for Monte Carlo VaR Demo
 """
 
+import os
+import sys
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import sys
-import os
 
 # Add the project root to Python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -64,9 +65,10 @@ except ImportError as e:
     print(f"⚠️ Warning: Could not load Monte Carlo routes: {e}")
 
     # Fallback: Simple inline Monte Carlo endpoint
-    from pydantic import BaseModel
     from typing import List
+
     import numpy as np
+    from pydantic import BaseModel
 
     class MonteCarloRequest(BaseModel):
         assets: List[str]

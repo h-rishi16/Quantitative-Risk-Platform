@@ -2,9 +2,10 @@
 Portfolio management API endpoints
 """
 
-from fastapi import APIRouter
-from typing import List
 import logging
+from typing import List
+
+from fastapi import APIRouter
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
