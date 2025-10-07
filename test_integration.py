@@ -9,6 +9,7 @@ import json
 import time
 import sys
 
+
 def test_api_health():
     """Test API health endpoint"""
     print("🔍 Testing API health endpoint...")
@@ -25,6 +26,7 @@ def test_api_health():
         print(f"❌ API Health error: {e}")
         return False
 
+
 def test_var_calculation():
     """Test VaR calculation endpoint"""
     print("🎲 Testing Monte Carlo VaR calculation...")
@@ -36,14 +38,14 @@ def test_var_calculation():
             print(f"   Portfolio ID: {result['portfolio_id']}")
             print(f"   Method: {result['method_used']}")
             print(f"   Simulations: {result['parameters']['num_simulations']}")
-            
+
             # Display VaR results
-            for var_result in result['var_results']:
-                conf = var_result['confidence_level']
-                var_val = var_result['var_value']
-                var_dollar = var_result['var_dollar']
+            for var_result in result["var_results"]:
+                conf = var_result["confidence_level"]
+                var_val = var_result["var_value"]
+                var_dollar = var_result["var_dollar"]
                 print(f"   {conf:.0%} VaR: {var_val:.4f} (${var_dollar:,.0f})")
-            
+
             return True
         else:
             print(f"❌ VaR Calculation failed: {response.status_code}")
@@ -51,6 +53,7 @@ def test_var_calculation():
     except Exception as e:
         print(f"❌ VaR Calculation error: {e}")
         return False
+
 
 def test_portfolio_endpoint():
     """Test portfolio data endpoint"""
@@ -60,12 +63,14 @@ def test_portfolio_endpoint():
         if response.status_code == 200:
             result = response.json()
             print(f"✅ Portfolio data retrieved!")
-            portfolio = result['portfolios'][0]
+            portfolio = result["portfolios"][0]
             print(f"   Name: {portfolio['name']}")
             print(f"   Total Value: ${portfolio['total_value']:,.0f}")
             print(f"   Assets: {len(portfolio['assets'])}")
-            for asset in portfolio['assets']:
-                print(f"     - {asset['symbol']}: {asset['weight']:.1%} (${asset['value']:,.0f})")
+            for asset in portfolio["assets"]:
+                print(
+                    f"     - {asset['symbol']}: {asset['weight']:.1%} (${asset['value']:,.0f})"
+                )
             return True
         else:
             print(f"❌ Portfolio endpoint failed: {response.status_code}")
@@ -73,6 +78,7 @@ def test_portfolio_endpoint():
     except Exception as e:
         print(f"❌ Portfolio endpoint error: {e}")
         return False
+
 
 def test_frontend_accessibility():
     """Test if frontend is accessible"""
@@ -89,30 +95,31 @@ def test_frontend_accessibility():
         print(f"❌ Frontend accessibility error: {e}")
         return False
 
+
 def main():
     """Run all integration tests"""
     print("🚀 Starting Quantitative Risk Platform Integration Tests")
     print("=" * 60)
-    
+
     tests = [
         ("API Health", test_api_health),
         ("Portfolio Data", test_portfolio_endpoint),
         ("VaR Calculation", test_var_calculation),
-        ("Frontend Access", test_frontend_accessibility)
+        ("Frontend Access", test_frontend_accessibility),
     ]
-    
+
     passed = 0
     total = len(tests)
-    
+
     for test_name, test_func in tests:
         print(f"\n📋 Running {test_name} test...")
         if test_func():
             passed += 1
         time.sleep(0.5)  # Small delay between tests
-    
+
     print("\n" + "=" * 60)
     print(f"🎯 Test Results: {passed}/{total} tests passed")
-    
+
     if passed == total:
         print("🎉 All tests passed! The platform is ready to use.")
         print("\n📍 Access URLs:")
@@ -123,6 +130,7 @@ def main():
     else:
         print("⚠️  Some tests failed. Please check the backend and frontend services.")
         return False
+
 
 if __name__ == "__main__":
     success = main()

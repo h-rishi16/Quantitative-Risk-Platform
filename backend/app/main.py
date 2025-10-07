@@ -16,6 +16,7 @@ from backend.api.routes import portfolio, risk_analysis, market_data, monte_carl
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Application lifespan events"""
@@ -23,12 +24,13 @@ async def lifespan(app: FastAPI):
     yield
     logger.info("Shutting down API")
 
+
 # Create FastAPI application
 app = FastAPI(
     title="Quantitative Risk Modeling Platform",
     description="Advanced risk analytics and portfolio management API for banking sector",
     version="1.0.0",
-    lifespan=lifespan
+    lifespan=lifespan,
 )
 
 # Add middleware
@@ -48,19 +50,22 @@ app.include_router(risk_analysis.router, prefix="/api/v1/risk", tags=["Risk Anal
 app.include_router(market_data.router, prefix="/api/v1/market", tags=["Market Data"])
 app.include_router(monte_carlo_api.router, tags=["Monte Carlo"])
 
+
 @app.get("/")
 async def root():
     """Root endpoint"""
     return {
         "message": "Quantitative Risk Modeling Platform API",
         "version": "1.0.0",
-        "status": "running"
+        "status": "running",
     }
+
 
 @app.get("/health")
 async def health_check():
     """Health check endpoint"""
     return {"status": "healthy"}
+
 
 @app.get("/sample_data")
 async def get_sample_data():
@@ -69,20 +74,15 @@ async def get_sample_data():
         "portfolio_weights": [
             {"asset": "AAPL", "weight": 0.4},
             {"asset": "GOOGL", "weight": 0.3},
-            {"asset": "MSFT", "weight": 0.3}
+            {"asset": "MSFT", "weight": 0.3},
         ],
         "sample_returns": [
             {"date": "2024-01-01", "AAPL": 0.01, "GOOGL": -0.005, "MSFT": 0.008},
             {"date": "2024-01-02", "AAPL": -0.012, "GOOGL": 0.02, "MSFT": 0.005},
-            {"date": "2024-01-03", "AAPL": 0.008, "GOOGL": 0.015, "MSFT": -0.003}
-        ]
+            {"date": "2024-01-03", "AAPL": 0.008, "GOOGL": 0.015, "MSFT": -0.003},
+        ],
     }
 
+
 if __name__ == "__main__":
-    uvicorn.run(
-        "main:app",
-        host="0.0.0.0",
-        port=8000,
-        reload=True,
-        log_level="info"
-    )
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True, log_level="info")
