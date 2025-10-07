@@ -4,7 +4,7 @@ version: '3.8'
 services:
   # Backend API Service
   backend:
-    build: .
+    build: ..
     container_name: risk-platform-api-prod
     ports:
       - "8002:8002"
@@ -36,7 +36,7 @@ services:
 
   # Frontend Streamlit Service
   frontend:
-    build: .
+    build: ..
     container_name: risk-platform-ui-prod
     ports:
       - "8501:8501"

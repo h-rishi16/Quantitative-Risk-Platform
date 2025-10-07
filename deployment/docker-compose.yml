@@ -3,7 +3,7 @@ version: '3.8'
 services:
   # Backend API Service
   backend:
-    build: .
+    build: ..
     container_name: risk-platform-api
     ports:
       - "8002:8002"
@@ -12,7 +12,7 @@ services:
       - API_HOST=0.0.0.0
       - API_PORT=8002
     volumes:
-      - ./sample_data:/app/sample_data:ro
+      - ../sample_data:/app/sample_data:ro
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8002/health"]
       interval: 30s
@@ -25,7 +25,7 @@ services:
 
   # Frontend Streamlit Service  
   frontend:
-    build: .
+    build: ..
     container_name: risk-platform-ui
     ports:
       - "8501:8501"

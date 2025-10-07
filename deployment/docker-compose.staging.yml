@@ -4,7 +4,7 @@ version: '3.8'
 services:
   # Backend API Service - Staging
   backend:
-    build: .
+    build: ..
     container_name: risk-platform-api-staging
     ports:
       - "8003:8002"  # Different port for staging
@@ -36,7 +36,7 @@ services:
 
   # Frontend Streamlit Service - Staging
   frontend:
-    build: .
+    build: ..
     container_name: risk-platform-ui-staging
     ports:
       - "8502:8501"  # Different port for staging

@@ -15,7 +15,7 @@ def test_api_health():
     """Test API health endpoint"""
     print("TESTING: Testing API health endpoint...")
     try:
-        response = requests.get("http://localhost:8000/health", timeout=5)
+        response = requests.get("http://localhost:8002/health", timeout=5)
         if response.status_code == 200:
             result = response.json()
             print(f"SUCCESS: API Health: {result['status']}")
@@ -31,53 +31,63 @@ def test_api_health():
 def test_var_calculation():
     """Test VaR calculation endpoint"""
     print("TESTING: Testing Monte Carlo VaR calculation...")
+    
+    # Sample request data
+    sample_request = {
+        "assets": ["AAPL", "GOOGL", "MSFT"],
+        "weights": [0.4, 0.3, 0.3],
+        "historical_returns": [
+            [0.01, 0.02, 0.015],
+            [-0.005, 0.01, 0.008],
+            [0.02, -0.01, 0.012]
+        ],
+        "confidence_levels": [0.95, 0.99],
+        "num_simulations": 1000
+    }
+    
     try:
-        response = requests.post("http://localhost:8000/api/v1/risk/var", timeout=10)
+        response = requests.post("http://localhost:8002/monte_carlo_var", 
+                               json=sample_request, timeout=10)
         if response.status_code == 200:
             result = response.json()
             print(f"SUCCESS: VaR Calculation successful!")
             print(f"   Portfolio ID: {result['portfolio_id']}")
-            print(f"   Method: {result['method_used']}")
-            print(f"   Simulations: {result['parameters']['num_simulations']}")
+            print(f"   Method: {result['method']}")
+            print(f"   Assets: {len(result['assets'])}")
 
             # Display VaR results
             for var_result in result["var_results"]:
                 conf = var_result["confidence_level"]
                 var_val = var_result["var_value"]
-                var_dollar = var_result["var_dollar"]
-                print(f"   {conf:.0%} VaR: {var_val:.4f} (${var_dollar:,.0f})")
+                print(f"   {conf:.0%} VaR: {var_val:.4f}")
 
             return True
         else:
             print(f"ERROR: VaR Calculation failed: {response.status_code}")
+            print(f"Response: {response.text}")
             return False
     except Exception as e:
         print(f"ERROR: VaR Calculation error: {e}")
         return False
 
 
-def test_portfolio_endpoint():
-    """Test portfolio data endpoint"""
-    print("TESTING: Testing portfolio endpoint...")
+def test_sample_data_endpoint():
+    """Test sample data endpoint"""
+    print("TESTING: Testing sample data endpoint...")
     try:
-        response = requests.get("http://localhost:8000/api/v1/portfolio/", timeout=5)
+        response = requests.get("http://localhost:8002/sample_data", timeout=5)
         if response.status_code == 200:
             result = response.json()
-            print(f"SUCCESS: Portfolio data retrieved!")
-            portfolio = result["portfolios"][0]
-            print(f"   Name: {portfolio['name']}")
-            print(f"   Total Value: ${portfolio['total_value']:,.0f}")
-            print(f"   Assets: {len(portfolio['assets'])}")
-            for asset in portfolio["assets"]:
-                print(
-                    f"     - {asset['symbol']}: {asset['weight']:.1%} (${asset['value']:,.0f})"
-                )
+            print(f"SUCCESS: Sample data retrieved!")
+            print(f"   Assets: {len(result.get('assets', []))}")
+            print(f"   Weights available: {len(result.get('weights', []))}")
+            print(f"   Returns data points: {len(result.get('historical_returns', []))}")
             return True
         else:
-            print(f"ERROR: Portfolio endpoint failed: {response.status_code}")
+            print(f"ERROR: Sample data endpoint failed: {response.status_code}")
             return False
     except Exception as e:
-        print(f"ERROR: Portfolio endpoint error: {e}")
+        print(f"ERROR: Sample data endpoint error: {e}")
         return False
 
 
@@ -104,7 +114,7 @@ def main():
 
     tests = [
         ("API Health", test_api_health),
-        ("Portfolio Data", test_portfolio_endpoint),
+        ("Sample Data", test_sample_data_endpoint),
         ("VaR Calculation", test_var_calculation),
         ("Frontend Access", test_frontend_accessibility),
     ]
