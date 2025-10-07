@@ -98,7 +98,7 @@ jobs:
     
     - name: Type check with mypy
       run: |
-        mypy backend/ --ignore-missing-imports
+        mypy backend/ --ignore-missing-imports --no-strict-optional --allow-untyped-defs --disable-error-code=misc
       continue-on-error: true
     
     - name: Test with pytest

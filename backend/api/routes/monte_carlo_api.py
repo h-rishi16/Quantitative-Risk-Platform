@@ -10,7 +10,7 @@ import os
 import sys
 from datetime import datetime
 from io import StringIO
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 import numpy as np
 import pandas as pd
@@ -295,7 +295,7 @@ async def get_sample_data():
 @router.get("/validate_data")
 async def validate_portfolio_data(
     portfolio_file: UploadFile = File(...), returns_file: UploadFile = File(...)
-):
+) -> Dict[str, Any]:
     """
     Validate uploaded portfolio data without running calculations
     """
@@ -308,23 +308,23 @@ async def validate_portfolio_data(
 
         # Validate portfolio
         portfolio_df = processor.load_portfolio_weights(portfolio_content)
-        portfolio_valid = portfolio_df is not None
+        portfolio_valid: bool = portfolio_df is not None
 
         # Validate returns
         returns_df = None
-        returns_valid = False
+        returns_valid: bool = False
         if portfolio_valid:
             returns_df = processor.load_historical_returns(returns_content)
             returns_valid = returns_df is not None
 
         # Get validation details
-        validation_result = {
+        validation_result: Dict[str, Any] = {
             "portfolio_valid": portfolio_valid,
             "returns_valid": returns_valid,
             "overall_valid": portfolio_valid and returns_valid,
         }
 
-        if portfolio_valid:
+        if portfolio_valid and portfolio_df is not None:
             validation_result["portfolio_info"] = {
                 "num_assets": len(portfolio_df),
                 "assets": portfolio_df["asset"].tolist(),
@@ -332,7 +332,7 @@ async def validate_portfolio_data(
                 "weights": portfolio_df["weight"].tolist(),
             }
 
-        if returns_valid:
+        if returns_valid and returns_df is not None:
             validation_result["returns_info"] = {
                 "num_observations": len(returns_df),
                 "date_range": [

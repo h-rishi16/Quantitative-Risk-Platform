@@ -50,7 +50,7 @@ class AssetParameters:
     volatility: float  # Annual volatility (σ)
     weight: float  # Portfolio weight
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         """Validate parameters"""
         if self.volatility < 0:
             raise ValueError(f"Volatility must be non-negative for {self.symbol}")
@@ -64,10 +64,10 @@ class SimulationConfig:
 
     num_simulations: int = 10000
     time_horizon: int = 252  # Trading days (1 year)
-    confidence_levels: List[float] = None
+    confidence_levels: Optional[List[float]] = None
     random_seed: Optional[int] = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.confidence_levels is None:
             self.confidence_levels = [0.95, 0.99, 0.999]
 
@@ -131,9 +131,9 @@ class MonteCarloVaR:
             logger.info(f"Initialized Monte Carlo VaR for {self.num_assets} assets")
         else:
             # Will be initialized later with from_data method
-            self.assets = None
+            self.assets = []
             self.num_assets = 0
-            self.correlation_matrix = None
+            self.correlation_matrix = np.array([])
 
     @classmethod
     def from_data(
@@ -143,7 +143,7 @@ class MonteCarloVaR:
         expected_returns: np.ndarray,
         volatilities: np.ndarray,
         correlation_matrix: np.ndarray,
-    ):
+    ) -> "MonteCarloVaR":
         """
         Create MonteCarloVaR instance from raw data arrays
 
@@ -177,7 +177,7 @@ class MonteCarloVaR:
         weights: np.ndarray,
         returns_matrix: np.ndarray,
         correlation_matrix: Optional[np.ndarray] = None,
-    ):
+    ) -> "MonteCarloVaR":
         """
         Create MonteCarloVaR instance from historical returns data
 

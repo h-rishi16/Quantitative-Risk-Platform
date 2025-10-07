@@ -19,6 +19,7 @@ from ..schemas.risk_metrics import (
     StressTestRequest,
     StressTestResult,
     VaRRequest,
+    VaRResult,
 )
 
 logger = logging.getLogger(__name__)
@@ -57,14 +58,16 @@ async def calculate_var(request: VaRRequest):
         portfolio_value = 10_000_000  # Mock portfolio value
 
         for conf_level in request.confidence_levels:
+            var_value = results.var_estimates[conf_level]
+            cvar_value = results.cvar_estimates[conf_level]
             var_results.append(
-                {
-                    "confidence_level": conf_level,
-                    "var_value": results.var_estimates[conf_level],
-                    "cvar_value": results.cvar_estimates[conf_level],
-                    "var_dollar": results.var_estimates[conf_level] * portfolio_value,
-                    "cvar_dollar": results.cvar_estimates[conf_level] * portfolio_value,
-                }
+                VaRResult(
+                    confidence_level=conf_level,
+                    var_value=var_value,
+                    cvar_value=cvar_value,
+                    var_dollar=var_value * portfolio_value,
+                    cvar_dollar=cvar_value * portfolio_value,
+                )
             )
 
         return RiskMetrics(
@@ -122,13 +125,13 @@ async def run_stress_test(request: StressTestRequest):
                     portfolio_id=request.portfolio_id,
                     calculation_date=datetime.now(),
                     var_results=[
-                        {
-                            "confidence_level": 0.95,
-                            "var_value": 0.05,
-                            "cvar_value": 0.07,
-                            "var_dollar": 500000,
-                            "cvar_dollar": 700000,
-                        }
+                        VaRResult(
+                            confidence_level=0.95,
+                            var_value=0.05,
+                            cvar_value=0.07,
+                            var_dollar=0.05 * 10_000_000,
+                            cvar_dollar=0.07 * 10_000_000,
+                        )
                     ],
                     portfolio_statistics={"stressed_volatility": 0.35},
                     method_used="stress_test",

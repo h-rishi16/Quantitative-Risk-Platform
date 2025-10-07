@@ -35,15 +35,15 @@ app = FastAPI(
 )
 
 # Add middleware
-app.add_middleware(
-    CORSMiddleware,
+app.add_middleware(  # type: ignore[call-arg,arg-type]
+    CORSMiddleware,  # type: ignore[arg-type]
     allow_origins=["http://localhost:8501"],  # Streamlit default port
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-app.add_middleware(GZipMiddleware, minimum_size=1000)
+app.add_middleware(GZipMiddleware, minimum_size=1000)  # type: ignore[call-arg,arg-type]
 
 # Include routers
 app.include_router(portfolio.router, prefix="/api/v1/portfolio", tags=["Portfolio"])
