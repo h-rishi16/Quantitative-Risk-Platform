@@ -6,12 +6,12 @@ plotly==5.17.0
 requests==2.31.0
 
 # Mathematical and Data Processing
-numpy==1.24.3
+numpy==1.25.2
 pandas==2.1.4
 scipy==1.11.4
 
 # API and Data Validation
-pydantic==2.5.0
+pydantic==2.5.3
 python-multipart==0.0.6
 
 # Development and Optional
