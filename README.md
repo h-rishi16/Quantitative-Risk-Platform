@@ -125,7 +125,7 @@ python scripts/health_check.py
 python -m pytest tests/ -v
 
 # Individual test components
-python -m pytest tests/test_integration.py -v  # API integration
+python -m pytest tests/integration/ -v  # API integration
 # Tests cover: health endpoints, VaR calculations, sample data, frontend accessibility
 ```
 
