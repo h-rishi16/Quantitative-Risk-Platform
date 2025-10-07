@@ -162,9 +162,13 @@ jobs:
       run: |
         curl -f http://localhost:8002/health || exit 1
     
-    - name: Run tests
+    - name: Run all tests
       run: |
-        pytest tests/ -v
+        pytest tests/ -v --tb=short
+    
+    - name: Run integration tests
+      run: |
+        pytest tests/integration/ -v
     
     - name: Stop backend
       run: |
