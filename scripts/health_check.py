@@ -204,9 +204,9 @@ class HealthChecker:
 
         # Try to import streamlit modules used in frontend
         try:
-            import plotly.express
-            import plotly.graph_objects
-            import streamlit
+            import plotly.express  # Plotly charting
+            import plotly.graph_objects  # Plotly objects
+            import streamlit  # Web app framework
 
             self.print_result(
                 "Frontend Dependencies", True, "All required modules available"
