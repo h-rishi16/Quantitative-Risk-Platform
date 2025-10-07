@@ -164,7 +164,7 @@ jobs:
     
     - name: Run integration tests
       run: |
-        pytest tests/integration/ -v
+        pytest tests/ -v
     
     - name: Stop backend
       run: |
