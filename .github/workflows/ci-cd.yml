@@ -166,6 +166,13 @@ jobs:
       run: |
         pytest tests/ -v --tb=short
     
+    - name: Check test directory structure
+      run: |
+        echo "=== Test directory structure ==="
+        find tests/ -type f -name "*.py" | head -10
+        echo "=== Integration directory contents ==="
+        ls -la tests/integration/ || echo "Integration directory not found"
+    
     - name: Run integration tests
       run: |
         pytest tests/integration/ -v
