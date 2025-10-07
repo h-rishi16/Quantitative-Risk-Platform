@@ -2,10 +2,6 @@
 
 A comprehensive quantitative risk modeling platform for the banking sector built with **Python**, **FastAPI**, and **Streamlit**. This platform provides advanced mathematical models for Value at Risk (VaR), Conditional VaR, Monte Carlo simulations, and real-time risk monitoring.
 
-[![Python 3.11+](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/downloads/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-green.svg)](https://fastapi.tiangolo.com/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-red.svg)](https://streamlit.io/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Features
 
@@ -33,53 +29,40 @@ A comprehensive quantitative risk modeling platform for the banking sector built
 
 ```
 quantitative-risk-platform/
-├── 📁 backend/                    # FastAPI backend application
-│   ├── api/                       # API routes and schemas
-│   ├── app/                       # Main application setup
-│   ├── core/                      # Core configuration
-│   ├── data_processing/           # Data processing modules
-│   ├── models/                    # Database models
-│   ├── risk_engines/              # Risk calculation engines
-│   └── utils/                     # Utility functions
-├── 📁 frontend/                   # Streamlit frontend application
-│   ├── components/                # Reusable UI components
-│   ├── pages/                     # Page modules
-│   ├── utils/                     # Frontend utilities
-│   └── app.py                     # Main Streamlit app
-├── 📁 tests/                      # Test suite
-│   ├── test_api.py               # API endpoint tests
-│   └── test_integration.py       # Integration tests
-├── 📁 scripts/                    # Utility scripts
-│   ├── setup.py                  # Environment setup script
-│   └── simple_main.py            # Simple application runner
-├── 📁 config/                     # Configuration templates
-│   ├── .env.example              # Development environment template
-│   └── .env.staging.example      # Staging environment template
-├── 📁 deployment/                 # Deployment configurations
-│   ├── docker-compose.yml        # Development environment
-│   ├── docker-compose.staging.yml # Staging environment
-│   ├── docker-compose.prod.yml   # Production environment
-│   ├── deploy-staging.sh         # Staging deployment script
-│   ├── trigger-staging.sh        # Manual deployment trigger
-│   └── STAGING_DEPLOYMENT.md     # Deployment documentation
-├── 📁 requirements/               # Python dependencies
-│   ├── requirements.txt          # Production dependencies
-│   └── requirements-dev.txt      # Development dependencies
-├── 📁 docs/                       # Project documentation
-│   ├── USER_GUIDE.md             # User guide
-│   ├── API_REFERENCE.md          # API documentation
-│   ├── GITHUB_READY.md           # GitHub setup guide
-│   ├── CHANGELOG.md              # Version history
-│   └── CODE_OF_CONDUCT.md        # Code of conduct
-├── 📁 sample_data/                # Sample datasets for testing
-├── 📁 docker/                     # Docker configurations
-├── 📁 .github/                    # GitHub Actions workflows
-├── 📄 README.md                   # This file
-├── 📄 CONTRIBUTING.md             # Contribution guidelines
-├── 📄 LICENSE                     # MIT license
-├── 📄 pyproject.toml             # Python project configuration
-├── 📄 Dockerfile                 # Docker image definition
-└── 📄 .gitignore                 # Git ignore rules
+├── backend/                       # FastAPI backend application
+│   ├── api/                        # API routes and schemas
+│   ├── app/                        # Main application setup
+│   ├── core/                       # Core configuration
+│   ├── data_processing/            # Data processing modules
+│   ├── models/                     # Database models
+│   ├── risk_engines/               # Risk calculation engines
+│   └── utils/                      # Utility functions
+├── frontend/                      # Streamlit frontend application
+│   ├── components/                 # Reusable UI components
+│   ├── pages/                      # Page modules
+│   ├── utils/                      # Frontend utilities
+│   └── app.py                      # Main Streamlit app
+├── tests/                         # Test suite
+│   ├── test_api.py                 # API endpoint tests
+│   └── test_integration.py         # Integration tests
+├── scripts/                       # Utility scripts
+│   ├── setup.py                    # Environment setup script
+│   └── simple_main.py              # Simple application runner
+├── config/                        # Configuration templates
+│   ├── .env.example                # Development environment template
+│   └── .env.staging.example        # Staging environment template
+├── deployment/                    # Deployment scripts
+│   └── deploy.sh                   # Simple deployment script
+├── docs/                          # Project documentation
+│   ├── USER_GUIDE.md               # User guide
+│   ├── API.md                      # API documentation
+│   └── CHANGELOG.md                # Version history
+├── sample_data/                   # Sample datasets for testing
+├── .github/                       # GitHub Actions workflows
+├── README.md                      # This file
+├── requirements.txt                # All Python dependencies
+├── pyproject.toml                  # Python project configuration
+└── .gitignore                      # Git ignore rules
 ```
 
 ## Quick Start
@@ -104,7 +87,7 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
 3. **Install dependencies**
 ```bash
-pip install -r requirements/requirements.txt
+pip install -r requirements.txt
 ```
 
 4. **Setup environment variables**
@@ -128,23 +111,21 @@ streamlit run frontend/app.py --server.port 8501
 - **API Documentation**: http://localhost:8002/docs
 - **API Health Check**: http://localhost:8002/health
 
-### Docker Deployment (Alternative)
+### Quick Deployment (Alternative)
 
-For a containerized deployment using Docker:
+For automated setup and deployment:
 
 ```bash
-# Development environment
-cd deployment
-docker-compose up -d
-
-# Staging environment
-cd deployment
-docker-compose -f docker-compose.staging.yml up -d
-
-# Production environment
-cd deployment
-docker-compose -f docker-compose.prod.yml up -d
+# Run the deployment script
+chmod +x deployment/deploy.sh
+./deployment/deploy.sh
 ```
+
+This script will:
+- Set up virtual environment
+- Install all dependencies
+- Run tests to verify setup
+- Provide startup instructions
 
 ## Configuration
 
@@ -165,15 +146,9 @@ cp config/.env.staging.example .env.staging
 
 ### Python Dependencies
 
-**Production Environment:**
+**All Dependencies (Consolidated):**
 ```bash
-pip install -r requirements/requirements.txt
-```
-
-**Development Environment:**
-```bash
-pip install -r requirements/requirements.txt
-pip install -r requirements/requirements-dev.txt
+pip install -r requirements.txt
 ```
 
 **Using pip-tools (Recommended):**
@@ -185,39 +160,42 @@ pip-sync requirements.txt
 
 ## Deployment
 
-### Manual Staging Deployment
+### Automated Deployment
 
-Use the deployment scripts for staging environment:
+Use the deployment script for easy setup:
 
 ```bash
-cd deployment
-./trigger-staging.sh
+# Run the deployment script
+./deployment/deploy.sh
 ```
 
-### Docker Compose Environments
+### Manual Deployment
 
-**Development:**
-```bash
-cd deployment
-docker-compose up -d
-```
+**Step-by-step setup:**
 
-**Staging:**
 ```bash
-cd deployment
-docker-compose -f docker-compose.staging.yml up -d
-```
+# 1. Set up virtual environment
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
-**Production:**
-```bash
-cd deployment
-docker-compose -f docker-compose.prod.yml up -d
+# 2. Install dependencies
+pip install -r requirements.txt
+
+# 3. Configure environment
+cp config/.env.example .env
+# Edit .env with your settings
+
+# 4. Run tests
+python -m pytest tests/ -v
+
+# 5. Start services
+python -m uvicorn scripts.simple_main:app --host 0.0.0.0 --port 8002 &
+streamlit run frontend/app.py --server.port 8501
 ```
 
 ### Prerequisites for Deployment
-- Docker and Docker Compose installed
+- Python 3.11 or higher
 - Environment files configured (see Configuration section)
-- GitHub tokens configured for automated deployments
 
 ## Testing
 
@@ -290,9 +268,7 @@ quantitative-risk-platform/
 │   ├── components/           # Reusable UI components
 │   └── utils/                # Frontend utilities
 ├── tests/                    # Test suites
-├── docker/                   # Docker configuration
-├── scripts/                  # Setup and utility scripts
-└── requirements/             # Dependency management
+└── scripts/                  # Setup and utility scripts
 ```
 
 ## 🛠️ Technology Stack
@@ -340,7 +316,7 @@ quantitative-risk-platform/
 
 3. **Install dependencies**
    ```bash
-   pip install -r requirements/development.txt
+   pip install -r requirements.txt
    ```
 
 4. **Set up environment variables**
@@ -458,40 +434,6 @@ pytest --cov=backend tests/
 - **Caching Strategy**: Redis caching for frequently accessed data
 - **Database Optimization**: Efficient queries and indexing strategies
 - **Memory Management**: Optimized memory usage for large-scale simulations
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📞 Support
-
-For support and questions:
-- 📧 Email: support@risk-platform.com
-- 📖 Documentation: [docs.risk-platform.com](https://docs.risk-platform.com)
-- 🐛 Issues: [GitHub Issues](https://github.com/your-repo/issues)
-
-## 🔮 Roadmap
-
-### Version 2.0 (Planned)
-- [ ] Machine Learning risk models
-- [ ] Real-time streaming market data
-- [ ] Advanced portfolio optimization
-- [ ] Mobile application
-- [ ] Cloud deployment automation
-
-### Version 1.1 (Next Release)
-- [ ] Enhanced stress testing scenarios
-- [ ] Additional stochastic processes
-- [ ] Performance dashboard improvements
-- [ ] Extended API documentation
 
 ---
 

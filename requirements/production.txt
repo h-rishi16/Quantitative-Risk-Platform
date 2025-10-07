@@ -1,5 +1,0 @@
--r base.txt
-
-# Production specific
-gunicorn==21.2.0
-prometheus-client==0.19.0

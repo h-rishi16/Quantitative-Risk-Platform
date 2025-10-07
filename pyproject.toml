@@ -7,7 +7,6 @@ name = "quantitative-risk-platform"
 version = "1.0.0"
 description = "A comprehensive quantitative risk modeling platform for the banking sector"
 readme = "README.md"
-license = {file = "LICENSE"}
 authors = [
     {name = "Risk Platform Team", email = "team@riskplatform.com"}
 ]
@@ -17,7 +16,6 @@ maintainers = [
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Financial and Insurance Industry",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
@@ -50,13 +48,6 @@ dev = [
     "black>=23.11.0",
     "isort>=5.12.0",
     "flake8>=6.1.0",
-    "pylint>=3.0.3",
-    "mypy>=1.7.1",
-    "pre-commit>=3.6.0",
-]
-docs = [
-    "mkdocs>=1.5.3",
-    "mkdocs-material>=9.4.8",
 ]
 
 [project.urls]
@@ -106,24 +97,7 @@ markers = [
     "unit: marks tests as unit tests",
 ]
 
-[tool.mypy]
-python_version = "3.11"
-warn_return_any = true
-warn_unused_configs = true
-disallow_untyped_defs = true
-disallow_incomplete_defs = true
-check_untyped_defs = true
-disallow_untyped_decorators = true
-no_implicit_optional = true
-warn_redundant_casts = true
-warn_unused_ignores = true
-warn_no_return = true
-warn_unreachable = true
-strict_equality = true
 
-[[tool.mypy.overrides]]
-module = ["streamlit.*", "plotly.*"]
-ignore_missing_imports = true
 
 [tool.coverage.run]
 source = ["backend", "frontend"]

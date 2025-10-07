@@ -77,7 +77,6 @@ jobs:
         python -m pip install --only-binary=all black==23.9.1
         python -m pip install --only-binary=all isort==5.12.0
         python -m pip install --only-binary=all flake8==6.0.0
-        python -m pip install --only-binary=all mypy==1.6.1
         python -m pip install --only-binary=all bandit==1.7.5
         python -m pip install --only-binary=all safety==2.3.4
         python -m pip install --only-binary=all coverage==7.3.2
@@ -96,11 +95,6 @@ jobs:
     - name: Import sort check with isort
       run: |
         isort --check-only --diff .
-    
-    - name: Type check with mypy
-      run: |
-        mypy backend/ --ignore-missing-imports --no-strict-optional --allow-untyped-defs --disable-error-code=misc
-      continue-on-error: true
     
     - name: Test with pytest
       run: |
@@ -145,37 +139,49 @@ jobs:
         name: security-scan-results
         path: bandit-report.json
 
-  # Build and Test Docker Images
-  docker:
+  # Application Integration Test
+  integration-test:
     runs-on: ubuntu-latest
     needs: test
     steps:
     - uses: actions/checkout@v4
     
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
     
-    - name: Build Docker image
+    - name: Install system dependencies
       run: |
-        docker build -t risk-platform:test .
+        sudo apt-get update
+        sudo apt-get install -y build-essential gfortran libopenblas-dev liblapack-dev
     
-    - name: Test Docker image
+    - name: Install dependencies
       run: |
-        # Start the container in background
-        docker run -d --name risk-test -p 8002:8002 risk-platform:test
+        python -m pip install --upgrade pip
+        python -m pip install --only-binary=all -r requirements.txt
+    
+    - name: Start FastAPI backend
+      run: |
+        cd backend && python -m uvicorn main:app --host 0.0.0.0 --port 8002 &
         sleep 10
-        
-        # Test health endpoint
+    
+    - name: Test API health endpoint
+      run: |
         curl -f http://localhost:8002/health || exit 1
-        
-        # Cleanup
-        docker stop risk-test
-        docker rm risk-test
+    
+    - name: Run integration tests
+      run: |
+        pytest tests/integration/ -v
+    
+    - name: Stop backend
+      run: |
+        pkill -f "uvicorn main:app" || true
 
   # Deploy to staging (on develop branch)
   deploy-staging:
     runs-on: ubuntu-latest
-    needs: [test, security, docker]
+    needs: [test, security, integration-test]
     if: github.ref == 'refs/heads/develop'
     environment: staging
     
@@ -190,7 +196,7 @@ jobs:
   # Deploy to production (on main branch)
   deploy-production:
     runs-on: ubuntu-latest
-    needs: [test, security, docker]
+    needs: [test, security, integration-test]
     if: github.ref == 'refs/heads/main'
     environment: production
     

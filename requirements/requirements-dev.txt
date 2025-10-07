@@ -11,7 +11,6 @@ httpx==0.25.2
 black==23.9.1
 isort==5.12.0
 flake8==6.0.0
-mypy==1.6.1
 
 # Security Tools
 bandit==1.7.5
