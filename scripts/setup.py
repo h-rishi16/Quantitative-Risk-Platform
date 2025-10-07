@@ -43,7 +43,7 @@ def main():
     if success_count == len(steps):
         print("SUCCESS: Setup completed successfully! All steps passed.")
         print("NEXT STEPS:")
-        print("   1. Start the backend: cd backend && uvicorn main:app --reload")
+        print("   1. Start the backend: cd backend && uvicorn app.main:app --reload")
         print("   2. Start the frontend: cd frontend && streamlit run app.py")
     else:
         print(f"WARNING: Setup completed with {len(steps) - success_count} failures.")

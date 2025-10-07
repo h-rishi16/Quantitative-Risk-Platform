@@ -108,11 +108,11 @@ jobs:
         echo "Deploying to staging environment using Python deployment..."
         
         # Stop any existing processes
-        pkill -f "uvicorn main:app" || true
+        pkill -f "uvicorn app.main:app" || true
         pkill -f "streamlit run" || true
         
         # Start FastAPI backend
-        cd backend && python -m uvicorn main:app --host 0.0.0.0 --port 8002 --reload &
+        cd backend && python -m uvicorn app.main:app --host 0.0.0.0 --port 8002 --reload &
         BACKEND_PID=$!
         
         # Wait for backend to start
@@ -187,7 +187,7 @@ jobs:
       if: always()
       run: |
         echo "Cleaning up staging processes..."
-        pkill -f "uvicorn main:app" || true
+        pkill -f "uvicorn app.main:app" || true
         pkill -f "streamlit run" || true
         echo "Cleanup completed"
 
