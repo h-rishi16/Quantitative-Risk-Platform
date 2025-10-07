@@ -150,6 +150,9 @@ async def calculate_monte_carlo_var(request: MonteCarloRequest):
             },
         )
 
+    except HTTPException:
+        # Re-raise HTTP exceptions (validation errors) without modification
+        raise
     except Exception as e:
         logger.error(f"Error in Monte Carlo VaR calculation: {str(e)}")
         raise HTTPException(status_code=500, detail=f"VaR calculation failed: {str(e)}")
