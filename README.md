@@ -64,8 +64,7 @@ quantitative-risk-platform/
 │   └── STAGING_DEPLOYMENT.md     # Deployment documentation
 ├── 📁 requirements/               # Python dependencies
 │   ├── requirements.txt          # Production dependencies
-│   ├── requirements-dev.txt      # Development dependencies
-│   └── README.md                 # Package documentation
+│   └── requirements-dev.txt      # Development dependencies
 ├── 📁 docs/                       # Project documentation
 │   ├── USER_GUIDE.md             # User guide
 │   ├── API_REFERENCE.md          # API documentation
@@ -147,7 +146,105 @@ cd deployment
 docker-compose -f docker-compose.prod.yml up -d
 ```
 
-See the [deployment README](deployment/README.md) for detailed deployment instructions.
+## Configuration
+
+### Environment Setup
+
+1. **Copy environment templates:**
+```bash
+cp config/.env.example .env
+cp config/.env.staging.example .env.staging
+```
+
+2. **Edit configuration files with your specific values:**
+- Database connection strings
+- API keys and secrets
+- Environment-specific settings
+
+**Security Note:** Never commit actual `.env` files with real credentials to version control.
+
+### Python Dependencies
+
+**Production Environment:**
+```bash
+pip install -r requirements/requirements.txt
+```
+
+**Development Environment:**
+```bash
+pip install -r requirements/requirements.txt
+pip install -r requirements/requirements-dev.txt
+```
+
+**Using pip-tools (Recommended):**
+```bash
+pip install pip-tools
+pip-compile pyproject.toml
+pip-sync requirements.txt
+```
+
+## Deployment
+
+### Manual Staging Deployment
+
+Use the deployment scripts for staging environment:
+
+```bash
+cd deployment
+./trigger-staging.sh
+```
+
+### Docker Compose Environments
+
+**Development:**
+```bash
+cd deployment
+docker-compose up -d
+```
+
+**Staging:**
+```bash
+cd deployment
+docker-compose -f docker-compose.staging.yml up -d
+```
+
+**Production:**
+```bash
+cd deployment
+docker-compose -f docker-compose.prod.yml up -d
+```
+
+### Prerequisites for Deployment
+- Docker and Docker Compose installed
+- Environment files configured (see Configuration section)
+- GitHub tokens configured for automated deployments
+
+## Testing
+
+### Run Tests
+
+**All Tests:**
+```bash
+python -m pytest tests/ -v
+```
+
+**Integration Tests:**
+```bash
+python tests/test_integration.py
+```
+
+**API Tests:**
+```bash
+python -m pytest tests/test_api.py -v
+```
+
+### Test Coverage
+
+The test suite includes:
+- API endpoint testing
+- Integration testing
+- Portfolio risk calculation validation
+- Frontend accessibility testing
 
 ## Features
 
