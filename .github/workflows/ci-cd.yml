@@ -173,14 +173,23 @@ jobs:
         echo "=== Integration directory contents ==="
         ls -la tests/integration/ || echo "Integration directory not found"
     
-    - name: Run integration tests
+    - name: Run integration tests (NEW VERSION)
       run: |
+        echo "=== DEBUGGING: Current directory ==="
+        pwd
+        echo "=== DEBUGGING: List all files ==="
+        find . -name "test*.py" -type f
+        echo "=== DEBUGGING: Check if integration dir exists ==="
+        ls -la tests/ || echo "tests directory not found"
+        ls -la tests/integration/ || echo "integration directory not found"
+        echo "=== Running integration tests ==="
         if [ -d "tests/integration" ]; then
-          echo "Running integration tests from tests/integration/"
+          echo "Found integration directory, running integration tests"
           pytest tests/integration/ -v
         else
-          echo "Integration directory not found, running integration tests from tests/"
-          pytest tests/ -k integration -v || echo "No integration tests found"
+          echo "Integration directory missing, running all tests with integration filter"
+          pytest tests/ -k integration -v || echo "No integration tests found, running all tests"
+          pytest tests/ -v || echo "No tests found at all"
         fi
     
     - name: Stop backend
