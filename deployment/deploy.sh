@@ -53,7 +53,8 @@ print_success "Virtual environment activated"
 
 # Install dependencies
 print_step "Installing dependencies..."
-pip install -r requirements/requirements.txt
+echo "Installing dependencies..."
+pip install -r requirements.txt
 print_success "Dependencies installed"
 
 # Run tests

@@ -67,8 +67,8 @@ jobs:
         cp -r frontend/ dist/risk-platform/
         cp -r config/ dist/risk-platform/
         cp -r deployment/ dist/risk-platform/
-        cp -r requirements/ dist/risk-platform/
         cp -r scripts/ dist/risk-platform/
+        cp requirements.txt dist/risk-platform/
         cp README.md dist/risk-platform/
         
         # Create archive

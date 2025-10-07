@@ -60,9 +60,9 @@ quantitative-risk-platform/
 ├── sample_data/                   # Sample datasets for testing
 ├── .github/                       # GitHub Actions workflows
 ├── README.md                      # This file
-├── requirements.txt                # All Python dependencies
-├── pyproject.toml                  # Python project configuration
-└── .gitignore                      # Git ignore rules
+├── requirements.txt               # All Python dependencies
+├── pyproject.toml                 # Python project configuration
+└── .gitignore                     # Git ignore rules
 ```
 
 ## Quick Start
@@ -287,11 +287,10 @@ quantitative-risk-platform/
 - **Plotly**: Interactive financial charts and visualizations
 - **Altair**: Statistical visualization grammar
 
-### Data & Infrastructure
-- **PostgreSQL**: Primary database for structured financial data
-- **Redis**: Caching and session management
-- **InfluxDB**: Time-series data storage for market data
-- **Docker**: Containerization and deployment
+### Infrastructure
+- **Python Virtual Environments**: Isolated dependency management
+- **Uvicorn**: High-performance ASGI server
+- **GitHub Actions**: CI/CD automation
 
 ## Quick Start
 
