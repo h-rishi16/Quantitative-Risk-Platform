@@ -4,6 +4,8 @@ Integration test script for the Quantitative Risk Platform
 Tests both backend API and frontend integration
 """
 
+import pytest
+
 import json
 import sys
 import time
