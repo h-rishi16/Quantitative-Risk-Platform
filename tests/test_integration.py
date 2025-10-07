@@ -31,7 +31,7 @@ def test_api_health():
 def test_var_calculation():
     """Test VaR calculation endpoint"""
     print("TESTING: Testing Monte Carlo VaR calculation...")
-    
+
     # Sample request data
     sample_request = {
         "assets": ["AAPL", "GOOGL", "MSFT"],
@@ -39,15 +39,16 @@ def test_var_calculation():
         "historical_returns": [
             [0.01, 0.02, 0.015],
             [-0.005, 0.01, 0.008],
-            [0.02, -0.01, 0.012]
+            [0.02, -0.01, 0.012],
         ],
         "confidence_levels": [0.95, 0.99],
-        "num_simulations": 1000
+        "num_simulations": 1000,
     }
-    
+
     try:
-        response = requests.post("http://localhost:8002/monte_carlo_var", 
-                               json=sample_request, timeout=10)
+        response = requests.post(
+            "http://localhost:8002/monte_carlo_var", json=sample_request, timeout=10
+        )
         if response.status_code == 200:
             result = response.json()
             print(f"SUCCESS: VaR Calculation successful!")
@@ -81,7 +82,9 @@ def test_sample_data_endpoint():
             print(f"SUCCESS: Sample data retrieved!")
             print(f"   Assets: {len(result.get('assets', []))}")
             print(f"   Weights available: {len(result.get('weights', []))}")
-            print(f"   Returns data points: {len(result.get('historical_returns', []))}")
+            print(
+                f"   Returns data points: {len(result.get('historical_returns', []))}"
+            )
             return True
         else:
             print(f"ERROR: Sample data endpoint failed: {response.status_code}")
@@ -139,7 +142,9 @@ def main():
         print("   API Health: http://localhost:8000/health")
         return True
     else:
-        print("WARNING: Some tests failed. Please check the backend and frontend services.")
+        print(
+            "WARNING: Some tests failed. Please check the backend and frontend services."
+        )
         return False
 
 

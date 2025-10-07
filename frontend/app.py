@@ -175,7 +175,9 @@ def monte_carlo_simulation():
                 # Validate weights
                 weight_sum = portfolio_df["weight"].sum()
                 if abs(weight_sum - 1.0) > 0.01:
-                    st.warning(f"WARNING: Weights sum to {weight_sum:.3f}, should be 1.0")
+                    st.warning(
+                        f"WARNING: Weights sum to {weight_sum:.3f}, should be 1.0"
+                    )
                 else:
                     st.success(f"SUCCESS: Weights sum to {weight_sum:.3f}")
 
@@ -503,7 +505,9 @@ def api_testing():
                 st.success("SUCCESS: Monte Carlo API test successful")
                 st.json(response.json())
             else:
-                st.error(f"ERROR: API test failed: {response.status_code} - {response.text}")
+                st.error(
+                    f"ERROR: API test failed: {response.status_code} - {response.text}"
+                )
         except Exception as e:
             st.error(f"ERROR: API test error: {e}")
 
