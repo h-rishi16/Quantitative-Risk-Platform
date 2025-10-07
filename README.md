@@ -14,9 +14,9 @@ A comprehensive quantitative risk modeling platform for the banking sector built
 
 ### Interactive Platform
 - **Web-based Interface** - Modern Streamlit dashboard with real-time calculations
-- **📁 CSV File Upload** - Easy portfolio data import with validation
+- **CSV File Upload** - Easy portfolio data import with validation
 - **Interactive Visualizations** - Professional charts using Plotly
-- **⚡ RESTful API** - FastAPI backend for programmatic access
+- **RESTful API** - FastAPI backend for programmatic access
 - **Real-time Processing** - Live risk calculations and updates
 
 ### Data Processing
@@ -249,7 +249,7 @@ The test suite includes:
 - Scenario analysis visualization
 - Portfolio optimization tools
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 quantitative-risk-platform/
@@ -271,7 +271,7 @@ quantitative-risk-platform/
 └── scripts/                  # Setup and utility scripts
 ```
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 ### Backend Technologies
 - **Python 3.11+**: Core programming language
@@ -342,7 +342,7 @@ quantitative-risk-platform/
    - Frontend: http://localhost:8501
    - API Documentation: http://localhost:8000/docs
 
-## 🧮 Monte Carlo VaR Implementation
+## Monte Carlo VaR Implementation
 
 The platform includes a comprehensive **Monte Carlo Value at Risk** implementation with the following features:
 
@@ -420,7 +420,7 @@ pytest --cov=backend tests/
 - `GET /api/v1/market/prices` - Get current market prices
 - `GET /api/v1/market/historical` - Get historical data
 
-## 🔒 Security & Compliance
+## Security & Compliance
 
 - **Data Encryption**: All sensitive data encrypted at rest and in transit
 - **Access Control**: Role-based authentication and authorization
@@ -436,4 +436,4 @@ pytest --cov=backend tests/
 
 ---
 
-**Built with ❤️ for the financial services industry**
+**Built with ❤️**
