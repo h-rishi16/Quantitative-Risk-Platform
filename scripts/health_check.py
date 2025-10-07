@@ -8,7 +8,9 @@ import os
 import subprocess
 import sys
 import time
-from typing import Dict, List, Tuple
+from typing import Dict
+from typing import List
+from typing import Tuple
 
 import requests
 
