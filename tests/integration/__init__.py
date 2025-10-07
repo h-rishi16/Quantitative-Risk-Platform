@@ -1,1 +1,1 @@
-# Integration tests for the Quantitative Risk Platform
+"""Integration tests for the Quantitative Risk Platform."""
