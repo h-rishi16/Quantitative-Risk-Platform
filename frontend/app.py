@@ -16,7 +16,7 @@ import streamlit as st
 # Configure page
 st.set_page_config(
     page_title="Quantitative Risk Platform",
-    page_icon="📊",
+    page_icon="�",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -25,8 +25,12 @@ st.set_page_config(
 st.markdown(
     """
 <style>
-    .main-header {
-        font-size: 2.5rem;
+    .main-heade                st.success("SUCCESS: Monte Carlo API test successful")
+                st.json(result)
+            else:
+                st.error(f"ERROR: API test failed: {response.status_code} - {response.text}")
+        except Exception as e:
+            st.error(f"ERROR: API test error: {e}")      font-size: 2.5rem;
         color: #1f77b4;
         text-align: center;
         margin-bottom: 2rem;
@@ -59,25 +63,25 @@ def check_api_status():
 def main():
     """Main application"""
     st.markdown(
-        '<h1 class="main-header">🏦 Quantitative Risk Modeling Platform</h1>',
+        '<h1 class="main-header">Quantitative Risk Modeling Platform</h1>',
         unsafe_allow_html=True,
     )
 
     # API Status indicator
     api_status = check_api_status()
     if api_status:
-        st.success("🟢 Backend API Connected")
+        st.success("SUCCESS: Backend API Connected")
     else:
-        st.error("🔴 Backend API Disconnected - Please start the backend server")
+        st.error("ERROR: Backend API Disconnected - Please start the backend server")
 
     # Sidebar navigation
     st.sidebar.title("Navigation")
 
     # Show API status in sidebar too
     if api_status:
-        st.sidebar.success("🟢 API Online")
+        st.sidebar.success("SUCCESS: API Online")
     else:
-        st.sidebar.error("🔴 API Offline")
+        st.sidebar.error("ERROR: API Offline")
 
     page = st.sidebar.selectbox(
         "Select Page",
@@ -101,7 +105,7 @@ def main():
 
 def portfolio_overview():
     """Portfolio overview page"""
-    st.header("📈 Portfolio Overview")
+    st.header("Portfolio Overview")
 
     # Sample portfolio data
     col1, col2, col3, col4 = st.columns(4)
@@ -118,7 +122,7 @@ def portfolio_overview():
 
 def risk_dashboard():
     """Risk metrics dashboard"""
-    st.header("⚠️ Risk Dashboard")
+    st.header("Risk Dashboard")
 
     # VaR metrics
     st.subheader("Value at Risk Metrics")
@@ -165,18 +169,18 @@ def monte_carlo_simulation():
         if portfolio_file:
             try:
                 portfolio_df = pd.read_csv(portfolio_file)
-                st.success(f"✅ Loaded {len(portfolio_df)} assets")
+                st.success(f"SUCCESS: Loaded {len(portfolio_df)} assets")
                 st.dataframe(portfolio_df, use_container_width=True)
 
                 # Validate weights
                 weight_sum = portfolio_df["weight"].sum()
                 if abs(weight_sum - 1.0) > 0.01:
-                    st.warning(f"⚠️ Weights sum to {weight_sum:.3f}, should be 1.0")
+                    st.warning(f"WARNING: Weights sum to {weight_sum:.3f}, should be 1.0")
                 else:
-                    st.success(f"✅ Weights sum to {weight_sum:.3f}")
+                    st.success(f"SUCCESS: Weights sum to {weight_sum:.3f}")
 
             except Exception as e:
-                st.error(f"❌ Error loading portfolio file: {e}")
+                st.error(f"ERROR: Error loading portfolio file: {e}")
                 portfolio_file = None
 
     with upload_col2:
@@ -191,7 +195,7 @@ def monte_carlo_simulation():
         if returns_file:
             try:
                 returns_df = pd.read_csv(returns_file)
-                st.success(f"✅ Loaded {len(returns_df)} observations")
+                st.success(f"SUCCESS: Loaded {len(returns_df)} observations")
 
                 # Show preview
                 st.markdown("**Preview (first 5 rows):**")
@@ -204,16 +208,16 @@ def monte_carlo_simulation():
 
                     missing_assets = portfolio_assets - returns_assets
                     if missing_assets:
-                        st.error(f"❌ Missing return data for: {missing_assets}")
+                        st.error(f"ERROR: Missing return data for: {missing_assets}")
                     else:
-                        st.success("✅ All portfolio assets have return data")
+                        st.success("SUCCESS: All portfolio assets have return data")
 
             except Exception as e:
-                st.error(f"❌ Error loading returns file: {e}")
+                st.error(f"ERROR: Error loading returns file: {e}")
                 returns_file = None
 
     # Download sample data section
-    st.subheader("📋 Sample Data")
+    st.subheader("Sample Data")
     sample_col1, sample_col2 = st.columns(2)
 
     with sample_col1:
@@ -249,7 +253,7 @@ MSFT,0.30"""
 
     # Only show simulation parameters if files are uploaded
     if portfolio_file and returns_file:
-        st.subheader("⚙️ Simulation Parameters")
+        st.subheader("Simulation Parameters")
 
         # Simulation parameters section
         col1, col2 = st.columns([1, 2])
@@ -270,7 +274,7 @@ MSFT,0.30"""
             )
 
             if st.button(
-                "🚀 Run Monte Carlo VaR", type="primary", use_container_width=True
+                "Run Monte Carlo VaR", type="primary", use_container_width=True
             ):
                 if confidence_levels:
                     run_monte_carlo_simulation(
@@ -334,7 +338,7 @@ def run_monte_carlo_simulation(
         if response.status_code == 200:
             results = response.json()
             progress_bar.progress(100)
-            status_text.text("✅ Monte Carlo simulation completed!")
+            status_text.text("SUCCESS: Monte Carlo simulation completed!")
 
             # Store results in session state
             st.session_state["var_results"] = results
@@ -359,7 +363,7 @@ def display_simulation_results():
     if "var_results" in st.session_state:
         results = st.session_state["var_results"]
 
-        st.subheader("🎯 VaR Results")
+        st.subheader("VaR Results")
 
         # Display VaR metrics
         for var_result in results["var_results"]:
@@ -380,7 +384,7 @@ def display_simulation_results():
                 )
 
         # Portfolio Statistics
-        st.subheader("📈 Portfolio Statistics")
+        st.subheader("Portfolio Statistics")
         stats = results["portfolio_statistics"]
 
         col1_stats, col2_stats, col3_stats, col4_stats = st.columns(4)
@@ -394,7 +398,7 @@ def display_simulation_results():
             st.metric("Kurtosis", f"{stats['kurtosis']:.3f}")
 
         # Visualization
-        st.subheader("📊 Return Distribution")
+        st.subheader("Return Distribution")
 
         # Generate distribution for visualization
         np.random.seed(42)
@@ -428,7 +432,7 @@ def display_simulation_results():
         st.plotly_chart(fig, use_container_width=True)
 
         # Show raw results in expander
-        with st.expander("🔍 View Raw API Response"):
+        with st.expander("View Raw API Response"):
             st.json(results)
 
     else:
@@ -437,7 +441,7 @@ def display_simulation_results():
 
 def api_testing():
     """API testing page for advanced users"""
-    st.header("🔧 API Testing")
+    st.header("API Testing")
 
     st.markdown(
         """
@@ -447,35 +451,35 @@ def api_testing():
     )
 
     # API endpoint testing
-    st.subheader("📡 API Endpoints")
+    st.subheader("API Endpoints")
 
     # Health check
     if st.button("Test Health Endpoint"):
         try:
             response = requests.get("http://localhost:8002/health")
             if response.status_code == 200:
-                st.success("✅ API Health Check Passed")
+                st.success("SUCCESS: API Health Check Passed")
                 st.json(response.json())
             else:
-                st.error(f"❌ Health check failed: {response.status_code}")
+                st.error(f"ERROR: Health check failed: {response.status_code}")
         except Exception as e:
-            st.error(f"❌ Connection error: {e}")
+            st.error(f"ERROR: Connection error: {e}")
 
     # Sample data endpoint
     if st.button("Get Sample Data"):
         try:
             response = requests.get("http://localhost:8002/sample_data")
             if response.status_code == 200:
-                st.success("✅ Sample data retrieved")
+                st.success("SUCCESS: Sample data retrieved")
                 data = response.json()
                 st.json(data)
             else:
-                st.error(f"❌ Failed to get sample data: {response.status_code}")
+                st.error(f"ERROR: Failed to get sample data: {response.status_code}")
         except Exception as e:
-            st.error(f"❌ Connection error: {e}")
+            st.error(f"ERROR: Connection error: {e}")
 
     # JSON API test
-    st.subheader("🧪 Test Monte Carlo API with JSON")
+    st.subheader("Test Monte Carlo API with JSON")
 
     sample_json = {
         "assets": ["AAPL", "GOOGL", "MSFT"],
@@ -490,21 +494,21 @@ def api_testing():
         "time_horizon": 1,
     }
 
-    if st.button("🚀 Test with Sample JSON"):
+    if st.button("Test with Sample JSON"):
         try:
             response = requests.post(
                 "http://localhost:8002/monte_carlo_var", json=sample_json, timeout=30
             )
             if response.status_code == 200:
-                st.success("✅ Monte Carlo API test successful")
+                st.success("SUCCESS: Monte Carlo API test successful")
                 st.json(response.json())
             else:
-                st.error(f"❌ API test failed: {response.status_code} - {response.text}")
+                st.error(f"ERROR: API test failed: {response.status_code} - {response.text}")
         except Exception as e:
-            st.error(f"❌ API test error: {e}")
+            st.error(f"ERROR: API test error: {e}")
 
     # Show sample JSON
-    st.subheader("📋 Sample JSON Request")
+    st.subheader("Sample JSON Request")
     st.code(json.dumps(sample_json, indent=2), language="json")
 
 

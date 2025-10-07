@@ -9,56 +9,44 @@ import sys
 from pathlib import Path
 
 
-def run_command(command, description):
-    """Run a shell command and handle errors"""
-    print(f"🔄 {description}...")
+def run_command(description, command):
+    """Run a command and report status"""
+    print(f"RUNNING: {description}...")
     try:
-        result = subprocess.run(
-            command, shell=True, check=True, capture_output=True, text=True
-        )
-        print(f"✅ {description} completed successfully")
-        return result.stdout
+        result = subprocess.run(command, shell=True, check=True, 
+                              capture_output=True, text=True)
+        print(f"SUCCESS: {description} completed successfully")
+        return True
     except subprocess.CalledProcessError as e:
-        print(f"❌ {description} failed: {e.stderr}")
-        return None
+        print(f"ERROR: {description} failed: {e.stderr}")
+        return False
 
 
 def main():
     """Main setup function"""
-    print("🚀 Setting up Quantitative Risk Modeling Platform")
-    print("=" * 50)
-
-    # Check Python version
-    if sys.version_info < (3, 11):
-        print("❌ Python 3.11 or higher is required")
-        sys.exit(1)
-
-    print(f"✅ Python {sys.version_info.major}.{sys.version_info.minor} detected")
-
-    # Install dependencies
-    requirements_files = ["requirements/base.txt", "requirements/development.txt"]
-
-    for req_file in requirements_files:
-        if Path(req_file).exists():
-            run_command(f"pip install -r {req_file}", f"Installing {req_file}")
-
-    # Create necessary directories
-    directories = ["logs", "data", "models", "tmp"]
-
-    for directory in directories:
-        Path(directory).mkdir(exist_ok=True)
-        print(f"📁 Created directory: {directory}")
-
-    # Copy environment file
-    if not Path(".env").exists() and Path(".env.example").exists():
-        run_command("cp .env.example .env", "Creating .env file")
-        print("⚠️  Please edit .env file with your configuration")
-
-    print("\n🎉 Setup completed!")
-    print("\nNext steps:")
-    print("1. Edit .env file with your configuration")
-    print("2. Start backend: cd backend && uvicorn app.main:app --reload")
-    print("3. Start frontend: cd frontend && streamlit run app.py")
+    print("SETUP: Setting up Risk Model development environment...")
+    print("")
+    
+    steps = [
+        ("Installing Python dependencies", "pip install -r requirements.txt"),
+        ("Running database setup", "python backend/database/init_db.py"),
+        ("Running tests", "python -m pytest tests/ -v"),
+    ]
+    
+    success_count = 0
+    for desc, cmd in steps:
+        if run_command(desc, cmd):
+            success_count += 1
+    
+    print("")
+    if success_count == len(steps):
+        print("SUCCESS: Setup completed successfully! All steps passed.")
+        print("NEXT STEPS:")
+        print("   1. Start the backend: cd backend && uvicorn main:app --reload")
+        print("   2. Start the frontend: cd frontend && streamlit run app.py")
+    else:
+        print(f"WARNING: Setup completed with {len(steps) - success_count} failures.")
+        print("Please check the error messages above and resolve any issues.")
 
 
 if __name__ == "__main__":

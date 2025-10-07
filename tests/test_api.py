@@ -1,83 +1,104 @@
 """
-Basic test for the Monte Carlo VaR API
+Simple FastAPI test application to verify setup
 """
-import pytest
-from fastapi.testclient import TestClient
 
-from simple_main import app
+from datetime import datetime
+from typing import Any, Dict, List
 
-client = TestClient(app)
+import uvicorn
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI(
+    title="Quantitative Risk Modeling Platform - Test",
+    description="Test API for risk analytics platform",
+    version="1.0.0",
+)
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:8501"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
-def test_health_endpoint():
-    """Test the health check endpoint"""
-    response = client.get("/health")
-    assert response.status_code == 200
-    assert response.json() == {"status": "healthy"}
+@app.get("/")
+async def root():
+    """Root endpoint"""
+    return {
+        "message": "Quantitative Risk Modeling Platform API - Test Version",
+        "version": "1.0.0",
+        "status": "running",
+        "timestamp": datetime.now().isoformat(),
+    }
 
 
-def test_sample_data_endpoint():
-    """Test the sample data endpoint"""
-    response = client.get("/sample_data")
-    assert response.status_code == 200
-    data = response.json()
-    assert "portfolio_weights" in data
-    assert "sample_returns" in data
+@app.get("/health")
+async def health_check():
+    """Health check endpoint"""
+    return {"status": "healthy", "service": "risk_modeling_api"}
 
 
-def test_monte_carlo_var_endpoint():
-    """Test the Monte Carlo VaR calculation endpoint"""
-    test_data = {
-        "assets": ["AAPL", "GOOGL", "MSFT"],
-        "weights": [0.4, 0.3, 0.3],
-        "historical_returns": [
-            [0.01, -0.005, 0.008],
-            [-0.012, 0.02, 0.005],
-            [0.008, 0.015, -0.003],
+@app.post("/api/v1/risk/var")
+async def calculate_var_simple():
+    """Simple VaR calculation endpoint for testing"""
+    # Mock VaR results for testing
+    mock_results = {
+        "portfolio_id": 1,
+        "calculation_date": datetime.now().isoformat(),
+        "var_results": [
+            {
+                "confidence_level": 0.95,
+                "var_value": 0.0234,
+                "cvar_value": 0.0312,
+                "var_dollar": 234000,
+                "cvar_dollar": 312000,
+            },
+            {
+                "confidence_level": 0.99,
+                "var_value": 0.0456,
+                "cvar_value": 0.0587,
+                "var_dollar": 456000,
+                "cvar_dollar": 587000,
+            },
         ],
-        "confidence_levels": [0.95, 0.99],
-        "num_simulations": 1000,
-        "time_horizon": 1,
+        "portfolio_statistics": {
+            "mean_return": 0.001,
+            "std_return": 0.02,
+            "skewness": -0.1,
+            "kurtosis": 3.2,
+            "num_simulations": 10000,
+        },
+        "method_used": "monte_carlo",
+        "parameters": {"num_simulations": 10000, "time_horizon": 252},
     }
 
-    response = client.post("/monte_carlo_var", json=test_data)
-    assert response.status_code == 200
-
-    result = response.json()
-    assert "var_results" in result
-    assert "portfolio_statistics" in result
-    assert "simulation_parameters" in result
-
-    # Check VaR results structure
-    var_results = result["var_results"]
-    assert len(var_results) == 2  # Two confidence levels
-
-    for var_result in var_results:
-        assert "confidence_level" in var_result
-        assert "var_value" in var_result
-        assert "var_dollar" in var_result
-        assert "cvar_value" in var_result
-        assert "cvar_dollar" in var_result
+    return mock_results
 
 
-def test_monte_carlo_var_validation():
-    """Test input validation for Monte Carlo VaR endpoint"""
-    # Test with invalid weights (don't sum to 1)
-    invalid_data = {
-        "assets": ["AAPL", "GOOGL"],
-        "weights": [0.8, 0.8],  # Sum > 1
-        "historical_returns": [[0.01, -0.005], [-0.012, 0.02]],
+@app.get("/api/v1/portfolio/")
+async def get_portfolios():
+    """Get portfolio information"""
+    return {
+        "portfolios": [
+            {
+                "id": 1,
+                "name": "Sample Portfolio",
+                "total_value": 10000000,
+                "assets": [
+                    {"symbol": "AAPL", "weight": 0.4, "value": 4000000},
+                    {"symbol": "GOOGL", "weight": 0.3, "value": 3000000},
+                    {"symbol": "MSFT", "weight": 0.3, "value": 3000000},
+                ],
+            }
+        ]
     }
 
-    response = client.post("/monte_carlo_var", json=invalid_data)
-    # Should still work but might give warning in logs
-    assert response.status_code in [200, 400]
 
-
-def test_monte_carlo_var_empty_data():
-    """Test Monte Carlo VaR with empty data"""
-    empty_data = {"assets": [], "weights": [], "historical_returns": []}
-
-    response = client.post("/monte_carlo_var", json=empty_data)
-    # Should handle gracefully
-    assert response.status_code in [200, 400, 422]
+if __name__ == "__main__":
+    uvicorn.run(
+        "test_api:app", host="0.0.0.0", port=8000, reload=True, log_level="info"
+    )

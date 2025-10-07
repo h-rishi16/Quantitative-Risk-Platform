@@ -1,4 +1,4 @@
-# 🏦 Quantitative Risk Modeling Platform
+# Quantitative Risk Modeling Platform
 
 A comprehensive quantitative risk modeling platform for the banking sector built with **Python**, **FastAPI**, and **Streamlit**. This platform provides advanced mathematical models for Value at Risk (VaR), Conditional VaR, Monte Carlo simulations, and real-time risk monitoring.
 
@@ -7,7 +7,7 @@ A comprehensive quantitative risk modeling platform for the banking sector built
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-red.svg)](https://streamlit.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## 📊 Features
+## Features
 
 ### Core Risk Analytics
 - **Monte Carlo Value at Risk (VaR)** - Advanced Monte Carlo simulations with correlation matrices
@@ -17,11 +17,11 @@ A comprehensive quantitative risk modeling platform for the banking sector built
 - **Multiple Confidence Levels** - 90%, 95%, 99%, 99.9% VaR calculations
 
 ### Interactive Platform
-- **🌐 Web-based Interface** - Modern Streamlit dashboard with real-time calculations
+- **Web-based Interface** - Modern Streamlit dashboard with real-time calculations
 - **📁 CSV File Upload** - Easy portfolio data import with validation
-- **📊 Interactive Visualizations** - Professional charts using Plotly
+- **Interactive Visualizations** - Professional charts using Plotly
 - **⚡ RESTful API** - FastAPI backend for programmatic access
-- **🔄 Real-time Processing** - Live risk calculations and updates
+- **Real-time Processing** - Live risk calculations and updates
 
 ### Data Processing
 - **Portfolio Weights Management** - Upload and validate portfolio compositions
@@ -29,7 +29,61 @@ A comprehensive quantitative risk modeling platform for the banking sector built
 - **Data Validation** - Comprehensive input validation and error handling
 - **Sample Data** - Ready-to-use test datasets for quick start
 
-## 🚀 Quick Start
+## Project Structure
+
+```
+quantitative-risk-platform/
+├── 📁 backend/                    # FastAPI backend application
+│   ├── api/                       # API routes and schemas
+│   ├── app/                       # Main application setup
+│   ├── core/                      # Core configuration
+│   ├── data_processing/           # Data processing modules
+│   ├── models/                    # Database models
+│   ├── risk_engines/              # Risk calculation engines
+│   └── utils/                     # Utility functions
+├── 📁 frontend/                   # Streamlit frontend application
+│   ├── components/                # Reusable UI components
+│   ├── pages/                     # Page modules
+│   ├── utils/                     # Frontend utilities
+│   └── app.py                     # Main Streamlit app
+├── 📁 tests/                      # Test suite
+│   ├── test_api.py               # API endpoint tests
+│   └── test_integration.py       # Integration tests
+├── 📁 scripts/                    # Utility scripts
+│   ├── setup.py                  # Environment setup script
+│   └── simple_main.py            # Simple application runner
+├── 📁 config/                     # Configuration templates
+│   ├── .env.example              # Development environment template
+│   └── .env.staging.example      # Staging environment template
+├── 📁 deployment/                 # Deployment configurations
+│   ├── docker-compose.yml        # Development environment
+│   ├── docker-compose.staging.yml # Staging environment
+│   ├── docker-compose.prod.yml   # Production environment
+│   ├── deploy-staging.sh         # Staging deployment script
+│   ├── trigger-staging.sh        # Manual deployment trigger
+│   └── STAGING_DEPLOYMENT.md     # Deployment documentation
+├── 📁 requirements/               # Python dependencies
+│   ├── requirements.txt          # Production dependencies
+│   ├── requirements-dev.txt      # Development dependencies
+│   └── README.md                 # Package documentation
+├── 📁 docs/                       # Project documentation
+│   ├── USER_GUIDE.md             # User guide
+│   ├── API_REFERENCE.md          # API documentation
+│   ├── GITHUB_READY.md           # GitHub setup guide
+│   ├── CHANGELOG.md              # Version history
+│   └── CODE_OF_CONDUCT.md        # Code of conduct
+├── 📁 sample_data/                # Sample datasets for testing
+├── 📁 docker/                     # Docker configurations
+├── 📁 .github/                    # GitHub Actions workflows
+├── 📄 README.md                   # This file
+├── 📄 CONTRIBUTING.md             # Contribution guidelines
+├── 📄 LICENSE                     # MIT license
+├── 📄 pyproject.toml             # Python project configuration
+├── 📄 Dockerfile                 # Docker image definition
+└── 📄 .gitignore                 # Git ignore rules
+```
+
+## Quick Start
 
 ### Prerequisites
 - Python 3.11 or higher
@@ -51,25 +105,51 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
 3. **Install dependencies**
 ```bash
-pip install -r requirements.txt
+pip install -r requirements/requirements.txt
 ```
 
-4. **Start the backend API**
+4. **Setup environment variables**
 ```bash
-python -m uvicorn simple_main:app --reload --host 0.0.0.0 --port 8002
+cp config/.env.example .env
+# Edit .env with your configuration
 ```
 
-5. **Start the frontend (in a new terminal)**
+5. **Start the backend API**
+```bash
+python -m uvicorn scripts.simple_main:app --reload --host 0.0.0.0 --port 8002
+```
+
+6. **Start the frontend (in a new terminal)**
 ```bash
 streamlit run frontend/app.py --server.port 8501
 ```
 
-6. **Access the platform**
-- 🌐 **Web Interface**: http://localhost:8501
-- ⚡ **API Documentation**: http://localhost:8002/docs
-- 📋 **API Health Check**: http://localhost:8002/health
+7. **Access the platform**
+- **Web Interface**: http://localhost:8501
+- **API Documentation**: http://localhost:8002/docs
+- **API Health Check**: http://localhost:8002/health
 
-## 🚀 Features
+### Docker Deployment (Alternative)
+
+For a containerized deployment using Docker:
+
+```bash
+# Development environment
+cd deployment
+docker-compose up -d
+
+# Staging environment
+cd deployment
+docker-compose -f docker-compose.staging.yml up -d
+
+# Production environment
+cd deployment
+docker-compose -f docker-compose.prod.yml up -d
+```
+
+See the [deployment README](deployment/README.md) for detailed deployment instructions.
+
+## Features
 
 ### Core Risk Models
 - **Value at Risk (VaR)** - Historical, Parametric, and Monte Carlo methods
@@ -140,7 +220,7 @@ quantitative-risk-platform/
 - **InfluxDB**: Time-series data storage for market data
 - **Docker**: Containerization and deployment
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - Python 3.11 or higher
@@ -232,7 +312,7 @@ Confidence    VaR (%)    VaR ($)         CVaR (%)   CVaR ($)
 99.9%        0.0678    $678,000        0.0834    $834,000
 ```
 
-## 🧪 Testing & Validation
+## Testing & Validation
 
 ### Running Tests
 ```bash
@@ -252,7 +332,7 @@ pytest --cov=backend tests/
 - Stress testing under extreme scenarios
 - Performance benchmarking against industry standards
 
-## 📊 API Endpoints
+## API Endpoints
 
 ### Portfolio Management
 - `GET /api/v1/portfolio/` - Get portfolio overview
@@ -275,7 +355,7 @@ pytest --cov=backend tests/
 - **Audit Logging**: Comprehensive audit trails for regulatory compliance
 - **Input Validation**: Robust validation for all user inputs and API calls
 
-## 📈 Performance Optimization
+## Performance Optimization
 
 - **Parallel Processing**: Multi-threaded Monte Carlo simulations
 - **Caching Strategy**: Redis caching for frequently accessed data
@@ -290,7 +370,7 @@ pytest --cov=backend tests/
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 

@@ -407,4 +407,4 @@ Feel free to:
 - Start a discussion on GitHub
 - Reach out to maintainers
 
-Thank you for contributing! 🎉
+Thank you for contributing!

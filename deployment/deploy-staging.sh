@@ -18,24 +18,24 @@ PROJECT_NAME="risk-platform-staging"
 STAGING_PORT_API=8003
 STAGING_PORT_UI=8502
 
-echo -e "${BLUE}🚀 Quantitative Risk Platform - Staging Deployment${NC}"
+echo -e "${BLUE}Quantitative Risk Platform - Staging Deployment${NC}"
 echo "=================================================="
 
 # Function to print colored output
 print_step() {
-    echo -e "${BLUE}📋 $1${NC}"
+    echo -e "${BLUE}STEP: $1${NC}"
 }
 
 print_success() {
-    echo -e "${GREEN}✅ $1${NC}"
+    echo -e "${GREEN}SUCCESS: $1${NC}"
 }
 
 print_warning() {
-    echo -e "${YELLOW}⚠️  $1${NC}"
+    echo -e "${YELLOW}WARNING: $1${NC}"
 }
 
 print_error() {
-    echo -e "${RED}❌ $1${NC}"
+    echo -e "${RED}ERROR: $1${NC}"
 }
 
 # Check if Docker is running
@@ -174,10 +174,10 @@ fi
 
 # Display deployment information
 echo ""
-echo -e "${GREEN}🎉 Staging Deployment Complete!${NC}"
+echo -e "${GREEN}Staging Deployment Complete!${NC}"
 echo "=================================="
 echo ""
-echo -e "${BLUE}📍 Service URLs:${NC}"
+echo -e "${BLUE}Service URLs:${NC}"
 echo "   • API (Backend):  http://localhost:$STAGING_PORT_API"
 echo "   • UI (Frontend):  http://localhost:$STAGING_PORT_UI"
 echo "   • Health Check:   http://localhost:$STAGING_PORT_API/health"
@@ -186,13 +186,13 @@ echo "   • Database:       localhost:5433 (risk_platform_staging)"
 echo "   • Redis Cache:    localhost:6380"
 echo "   • Prometheus:     http://localhost:9091"
 echo ""
-echo -e "${BLUE}🔧 Management Commands:${NC}"
+echo -e "${BLUE}Management Commands:${NC}"
 echo "   • View logs:      docker compose -f $COMPOSE_FILE -p $PROJECT_NAME logs -f"
 echo "   • Stop services:  docker compose -f $COMPOSE_FILE -p $PROJECT_NAME down"
 echo "   • Restart:        docker compose -f $COMPOSE_FILE -p $PROJECT_NAME restart"
 echo "   • Remove all:     docker compose -f $COMPOSE_FILE -p $PROJECT_NAME down -v"
 echo ""
-echo -e "${BLUE}📊 Container Status:${NC}"
+echo -e "${BLUE}Container Status:${NC}"
 docker compose -f $COMPOSE_FILE -p $PROJECT_NAME ps
 
 # Test API endpoints
@@ -219,7 +219,7 @@ fi
 echo ""
 print_success "Staging deployment validation complete!"
 echo ""
-echo -e "${YELLOW}💡 Next steps:${NC}"
+echo -e "${YELLOW}Next steps:${NC}"
 echo "   1. Open http://localhost:$STAGING_PORT_UI in your browser"
 echo "   2. Test the Monte Carlo VaR calculations"
 echo "   3. Check the API documentation at http://localhost:$STAGING_PORT_API/docs"

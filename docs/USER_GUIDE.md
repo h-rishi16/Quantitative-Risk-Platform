@@ -79,9 +79,9 @@ Requirements:
 1. Navigate to the **Monte Carlo Simulation** page
 2. Use the file upload widgets to select your CSV files
 3. The system will validate your files and show:
-   - ✅ File loaded successfully
-   - ⚠️ Validation warnings (if any)
-   - ❌ Errors that need fixing
+   - SUCCESS: File loaded successfully
+   - WARNING: Validation warnings (if any)
+   - ERROR: Errors that need fixing
 
 #### Step 3: Configure Parameters
 
@@ -102,7 +102,7 @@ Set your simulation parameters:
 
 #### Step 4: Run Simulation
 
-1. Click **"🚀 Run Monte Carlo VaR"**
+1. Click **"Run Monte Carlo VaR"**
 2. Wait for the calculation to complete (progress bar shown)
 3. Results will appear automatically below
 
@@ -169,7 +169,7 @@ If you don't have your own data, use the sample data provided:
 
 **"API Connection Error"**
 - Verify backend server is running
-- Check if API status shows "🟢 API Online"
+- Check if API status shows "SUCCESS: API Online"
 
 **"Calculation timeout"**
 - Reduce number of simulations

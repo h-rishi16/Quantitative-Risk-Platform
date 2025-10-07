@@ -60,20 +60,20 @@ docker compose -f docker-compose.staging.yml -p risk-platform-staging ps
 
 ## Staging Environment Features
 
-### 🔧 Configuration
+### Configuration
 - **Environment**: Staging isolation with separate ports
 - **Debug Mode**: Enabled for detailed logging
 - **Database**: Dedicated PostgreSQL staging instance
 - **Cache**: Redis with staging-specific configuration
 - **Monitoring**: Prometheus metrics collection
 
-### 🧪 Testing Features
+### Testing Features
 - **Sample Data**: Pre-loaded test portfolios
 - **Debug Logging**: Comprehensive request/response logging  
 - **Health Checks**: Automated service monitoring
 - **Performance Metrics**: Response time and throughput tracking
 
-### 🚀 Services
+### Services
 
 #### Backend API (Port 8003)
 - FastAPI application with comprehensive risk calculations
@@ -222,7 +222,7 @@ The staging environment integrates with GitHub Actions for automated deployment:
 
 ## Security Notes
 
-⚠️ **Staging Environment Warnings**:
+**WARNING - Staging Environment Warnings**:
 - Uses default passwords (change for production)
 - Debug mode enabled (disable for production)
 - No SSL/TLS encryption (add for production)
@@ -261,7 +261,7 @@ For issues with staging deployment:
 
 ---
 
-**📋 Staging Deployment Checklist**:
+**CHECKLIST - Staging Deployment Checklist**:
 - [ ] Docker Desktop installed and running
 - [ ] Ports 8003, 8502, 5433, 6380, 9091 available
 - [ ] Minimum 8GB RAM allocated to Docker

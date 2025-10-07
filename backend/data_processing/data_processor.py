@@ -282,15 +282,15 @@ if __name__ == "__main__":
     returns_csv = returns_df.to_csv(index=False)
 
     if processor.load_portfolio_weights(portfolio_csv):
-        print("\n✅ Portfolio weights loaded successfully")
+        print("\nSUCCESS: Portfolio weights loaded successfully")
 
         if processor.load_historical_returns(returns_csv):
-            print("✅ Historical returns loaded successfully")
+            print("SUCCESS: Historical returns loaded successfully")
 
             # Get portfolio data
             portfolio_data = processor.get_portfolio_data()
             if portfolio_data:
-                print(f"\n📊 Portfolio Analysis:")
+                print(f"\nANALYSIS: Portfolio Analysis:")
                 print(f"Assets: {portfolio_data['assets']}")
                 print(f"Weights: {portfolio_data['weights']}")
                 print(f"Observations: {portfolio_data['num_observations']}")
@@ -298,14 +298,14 @@ if __name__ == "__main__":
                 # Calculate statistics
                 stats = processor.calculate_portfolio_statistics()
                 if stats:
-                    print(f"\n📈 Portfolio Statistics:")
+                    print(f"\nSTATISTICS: Portfolio Statistics:")
                     print(f"Expected Return: {stats['portfolio_return']:.2%}")
                     print(f"Volatility: {stats['portfolio_volatility']:.2%}")
                     print(f"Sharpe Ratio: {stats['sharpe_ratio']:.3f}")
                     print(f"Max Drawdown: {stats['max_drawdown']:.2%}")
             else:
-                print("❌ Failed to process portfolio data")
+                print("ERROR: Failed to process portfolio data")
         else:
-            print("❌ Failed to load historical returns")
+            print("ERROR: Failed to load historical returns")
     else:
-        print("❌ Failed to load portfolio weights")
+        print("ERROR: Failed to load portfolio weights")

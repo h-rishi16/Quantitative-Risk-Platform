@@ -149,7 +149,7 @@ jobs:
     
     - name: Deploy to staging with Docker Compose
       run: |
-        echo "🚀 Deploying to staging environment..."
+        echo "Deploying to staging environment..."
         
         # Stop existing staging containers
         docker compose -f docker-compose.staging.yml -p risk-platform-staging down --remove-orphans || true
@@ -161,33 +161,33 @@ jobs:
         docker compose -f docker-compose.staging.yml -p risk-platform-staging up -d --build
         
         # Wait for services to be ready
-        echo "⏳ Waiting for services to be ready..."
+        echo "Waiting for services to be ready..."
         sleep 30
         
         # Health checks
-        echo "🏥 Performing health checks..."
+        echo "Performing health checks..."
         for i in {1..10}; do
           if curl -f http://localhost:8003/health; then
-            echo "✅ API health check passed"
+            echo "SUCCESS: API health check passed"
             break
           fi
-          echo "⏳ Attempt $i/10: API not ready yet, waiting..."
+          echo "Attempt $i/10: API not ready yet, waiting..."
           sleep 10
         done
         
         # Check UI accessibility
         for i in {1..5}; do
           if curl -f http://localhost:8502; then
-            echo "✅ UI accessibility check passed"
+            echo "SUCCESS: UI accessibility check passed"
             break
           fi
-          echo "⏳ Attempt $i/5: UI not ready yet, waiting..."
+          echo "Attempt $i/5: UI not ready yet, waiting..."
           sleep 10
         done
     
     - name: Run basic functionality tests
       run: |
-        echo "🧪 Running basic functionality tests on staging..."
+        echo "Running basic functionality tests on staging..."
         
         # Test API endpoints
         echo "Testing health endpoint..."
@@ -199,34 +199,34 @@ jobs:
         echo "Testing API documentation..."
         curl -f http://localhost:8003/docs
         
-        echo "✅ Basic functionality tests passed"
+        echo "SUCCESS: Basic functionality tests passed"
     
     - name: Display staging deployment info
       run: |
-        echo "🎉 Staging Deployment Complete!"
+        echo "Staging Deployment Complete!"
         echo "================================"
         echo ""
-        echo "📍 Service URLs:"
+        echo "Service URLs:"
         echo "   • API (Backend):  http://localhost:8003"
         echo "   • UI (Frontend):  http://localhost:8502"
         echo "   • Health Check:   http://localhost:8003/health"
         echo "   • API Docs:       http://localhost:8003/docs"
         echo ""
-        echo "🔧 Container Status:"
+        echo "Container Status:"
         docker compose -f docker-compose.staging.yml -p risk-platform-staging ps
         
         echo ""
-        echo "📊 Recent logs:"
+        echo "Recent logs:"
         docker compose -f docker-compose.staging.yml -p risk-platform-staging logs --tail=20
 
     - name: Notify deployment status
       if: always()
       run: |
         if [ "${{ job.status }}" == "success" ]; then
-          echo "✅ Staging deployment successful!"
+          echo "SUCCESS: Staging deployment successful!"
           echo "Deploy reason: ${{ github.event.inputs.deploy_reason || 'Automatic deployment on push to main' }}"
         else
-          echo "❌ Staging deployment failed!"
+          echo "ERROR: Staging deployment failed!"
         fi
 
   # Cleanup on PR close
@@ -236,7 +236,7 @@ jobs:
     steps:
     - name: Cleanup staging environment
       run: |
-        echo "🧹 Cleaning up staging environment for closed PR..."
+        echo "Cleaning up staging environment for closed PR..."
         docker compose -f docker-compose.staging.yml -p risk-platform-staging-pr-${{ github.event.number }} down -v || true
         docker image prune -f || true
-        echo "✅ Cleanup completed"
+        echo "SUCCESS: Cleanup completed"

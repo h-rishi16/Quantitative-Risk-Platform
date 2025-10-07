@@ -60,9 +60,9 @@ try:
     from backend.api.routes.monte_carlo_api import router as monte_carlo_router
 
     app.include_router(monte_carlo_router, tags=["Monte Carlo"])
-    print("✅ Monte Carlo API routes loaded successfully")
+    print("SUCCESS: Monte Carlo API routes loaded successfully")
 except ImportError as e:
-    print(f"⚠️ Warning: Could not load Monte Carlo routes: {e}")
+    print(f"WARNING: Could not load Monte Carlo routes: {e}")
 
     # Fallback: Simple inline Monte Carlo endpoint
     from typing import List

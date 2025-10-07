@@ -13,29 +13,29 @@ import requests
 
 def test_api_health():
     """Test API health endpoint"""
-    print("🔍 Testing API health endpoint...")
+    print("TESTING: Testing API health endpoint...")
     try:
         response = requests.get("http://localhost:8000/health", timeout=5)
         if response.status_code == 200:
             result = response.json()
-            print(f"✅ API Health: {result['status']}")
+            print(f"SUCCESS: API Health: {result['status']}")
             return True
         else:
-            print(f"❌ API Health failed: {response.status_code}")
+            print(f"ERROR: API Health failed: {response.status_code}")
             return False
     except Exception as e:
-        print(f"❌ API Health error: {e}")
+        print(f"ERROR: API Health error: {e}")
         return False
 
 
 def test_var_calculation():
     """Test VaR calculation endpoint"""
-    print("🎲 Testing Monte Carlo VaR calculation...")
+    print("TESTING: Testing Monte Carlo VaR calculation...")
     try:
         response = requests.post("http://localhost:8000/api/v1/risk/var", timeout=10)
         if response.status_code == 200:
             result = response.json()
-            print(f"✅ VaR Calculation successful!")
+            print(f"SUCCESS: VaR Calculation successful!")
             print(f"   Portfolio ID: {result['portfolio_id']}")
             print(f"   Method: {result['method_used']}")
             print(f"   Simulations: {result['parameters']['num_simulations']}")
@@ -49,21 +49,21 @@ def test_var_calculation():
 
             return True
         else:
-            print(f"❌ VaR Calculation failed: {response.status_code}")
+            print(f"ERROR: VaR Calculation failed: {response.status_code}")
             return False
     except Exception as e:
-        print(f"❌ VaR Calculation error: {e}")
+        print(f"ERROR: VaR Calculation error: {e}")
         return False
 
 
 def test_portfolio_endpoint():
     """Test portfolio data endpoint"""
-    print("📈 Testing portfolio endpoint...")
+    print("TESTING: Testing portfolio endpoint...")
     try:
         response = requests.get("http://localhost:8000/api/v1/portfolio/", timeout=5)
         if response.status_code == 200:
             result = response.json()
-            print(f"✅ Portfolio data retrieved!")
+            print(f"SUCCESS: Portfolio data retrieved!")
             portfolio = result["portfolios"][0]
             print(f"   Name: {portfolio['name']}")
             print(f"   Total Value: ${portfolio['total_value']:,.0f}")
@@ -74,32 +74,32 @@ def test_portfolio_endpoint():
                 )
             return True
         else:
-            print(f"❌ Portfolio endpoint failed: {response.status_code}")
+            print(f"ERROR: Portfolio endpoint failed: {response.status_code}")
             return False
     except Exception as e:
-        print(f"❌ Portfolio endpoint error: {e}")
+        print(f"ERROR: Portfolio endpoint error: {e}")
         return False
 
 
 def test_frontend_accessibility():
     """Test if frontend is accessible"""
-    print("🎨 Testing frontend accessibility...")
+    print("TESTING: Testing frontend accessibility...")
     try:
         response = requests.get("http://localhost:8501", timeout=5)
         if response.status_code == 200:
-            print("✅ Frontend is accessible!")
+            print("SUCCESS: Frontend is accessible!")
             return True
         else:
-            print(f"❌ Frontend not accessible: {response.status_code}")
+            print(f"ERROR: Frontend not accessible: {response.status_code}")
             return False
     except Exception as e:
-        print(f"❌ Frontend accessibility error: {e}")
+        print(f"ERROR: Frontend accessibility error: {e}")
         return False
 
 
 def main():
     """Run all integration tests"""
-    print("🚀 Starting Quantitative Risk Platform Integration Tests")
+    print("STARTING: Starting Quantitative Risk Platform Integration Tests")
     print("=" * 60)
 
     tests = [
@@ -113,23 +113,23 @@ def main():
     total = len(tests)
 
     for test_name, test_func in tests:
-        print(f"\n📋 Running {test_name} test...")
+        print(f"\nRUNNING: Running {test_name} test...")
         if test_func():
             passed += 1
         time.sleep(0.5)  # Small delay between tests
 
     print("\n" + "=" * 60)
-    print(f"🎯 Test Results: {passed}/{total} tests passed")
+    print(f"RESULTS: Test Results: {passed}/{total} tests passed")
 
     if passed == total:
-        print("🎉 All tests passed! The platform is ready to use.")
-        print("\n📍 Access URLs:")
+        print("SUCCESS: All tests passed! The platform is ready to use.")
+        print("\nACCESS URLs:")
         print("   Frontend Dashboard: http://localhost:8501")
         print("   Backend API Docs: http://localhost:8000/docs")
         print("   API Health: http://localhost:8000/health")
         return True
     else:
-        print("⚠️  Some tests failed. Please check the backend and frontend services.")
+        print("WARNING: Some tests failed. Please check the backend and frontend services.")
         return False
 
 
