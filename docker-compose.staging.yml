@@ -1,0 +1,146 @@
+# Staging docker-compose configuration
+version: '3.8'
+
+services:
+  # Backend API Service - Staging
+  backend:
+    build: .
+    container_name: risk-platform-api-staging
+    ports:
+      - "8003:8002"  # Different port for staging
+    environment:
+      - PYTHONPATH=/app
+      - API_HOST=0.0.0.0
+      - API_PORT=8002
+      - ENVIRONMENT=staging
+      - API_VERSION=staging
+      - DEBUG=true
+      - LOG_LEVEL=DEBUG
+    volumes:
+      - ./sample_data:/app/sample_data:ro
+      - ./logs:/app/logs  # Mount logs for debugging
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8002/health"]
+      interval: 15s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    restart: unless-stopped
+    networks:
+      - risk-platform-staging
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=risk-platform-staging"
+      - "traefik.http.routers.api-staging.rule=Host(`api-staging.risk-platform.local`)"
+      - "traefik.http.services.api-staging.loadbalancer.server.port=8002"
+
+  # Frontend Streamlit Service - Staging
+  frontend:
+    build: .
+    container_name: risk-platform-ui-staging
+    ports:
+      - "8502:8501"  # Different port for staging
+    environment:
+      - PYTHONPATH=/app
+      - API_BASE_URL=http://backend:8002
+      - ENVIRONMENT=staging
+      - STREAMLIT_THEME_BASE=light
+      - STREAMLIT_SERVER_ENABLE_CORS=false
+      - STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION=false
+    command: >
+      streamlit run frontend/app.py 
+      --server.port=8501 
+      --server.address=0.0.0.0
+      --server.enableCORS=false
+      --server.enableXsrfProtection=false
+      --server.headless=true
+      --browser.gatherUsageStats=false
+    depends_on:
+      backend:
+        condition: service_healthy
+    volumes:
+      - ./sample_data:/app/sample_data:ro
+    restart: unless-stopped
+    networks:
+      - risk-platform-staging
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=risk-platform-staging"
+      - "traefik.http.routers.ui-staging.rule=Host(`staging.risk-platform.local`)"
+      - "traefik.http.services.ui-staging.loadbalancer.server.port=8501"
+
+  # Redis Cache - Staging (for session management and caching)
+  redis:
+    image: redis:7-alpine
+    container_name: risk-platform-redis-staging
+    ports:
+      - "6380:6379"  # Different port for staging
+    environment:
+      - REDIS_PASSWORD=staging_redis_password_2024
+    command: redis-server --requirepass staging_redis_password_2024
+    volumes:
+      - redis_staging_data:/data
+    networks:
+      - risk-platform-staging
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # Database - PostgreSQL Staging
+  postgres:
+    image: postgres:15-alpine
+    container_name: risk-platform-db-staging
+    ports:
+      - "5433:5432"  # Different port for staging
+    environment:
+      - POSTGRES_DB=risk_platform_staging
+      - POSTGRES_USER=risk_user_staging
+      - POSTGRES_PASSWORD=staging_db_password_2024
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --lc-collate=en_US.UTF-8 --lc-ctype=en_US.UTF-8
+    volumes:
+      - postgres_staging_data:/var/lib/postgresql/data
+      - ./database/init_staging.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - risk-platform-staging
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U risk_user_staging -d risk_platform_staging"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Monitoring - Prometheus (Optional for staging)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: risk-platform-prometheus-staging
+    ports:
+      - "9091:9090"
+    volumes:
+      - ./monitoring/prometheus.staging.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_staging_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=7d'
+      - '--web.enable-lifecycle'
+    networks:
+      - risk-platform-staging
+    restart: unless-stopped
+
+networks:
+  risk-platform-staging:
+    driver: bridge
+    name: risk-platform-staging
+
+volumes:
+  redis_staging_data:
+    name: risk_platform_redis_staging
+  postgres_staging_data:
+    name: risk_platform_db_staging
+  prometheus_staging_data:
+    name: risk_platform_prometheus_staging
