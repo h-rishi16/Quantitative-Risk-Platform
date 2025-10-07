@@ -1,0 +1,147 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quantitative-risk-platform"
+version = "1.0.0"
+description = "A comprehensive quantitative risk modeling platform for the banking sector"
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Risk Platform Team", email = "team@riskplatform.com"}
+]
+maintainers = [
+    {name = "Risk Platform Team", email = "team@riskplatform.com"}
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Financial and Insurance Industry",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Office/Business :: Financial",
+    "Topic :: Scientific/Engineering :: Mathematics",
+]
+keywords = ["risk", "finance", "var", "monte-carlo", "quantitative", "banking"]
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.104.1",
+    "uvicorn[standard]>=0.24.0",
+    "streamlit>=1.28.2",
+    "plotly>=5.17.0",
+    "requests>=2.31.0",
+    "numpy>=1.24.3",
+    "pandas>=2.1.4",
+    "scipy>=1.11.4",
+    "pydantic>=2.5.0",
+    "python-multipart>=0.0.6",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.3",
+    "pytest-asyncio>=0.21.1",
+    "httpx>=0.25.2",
+    "pytest-cov>=4.1.0",
+    "black>=23.11.0",
+    "isort>=5.12.0",
+    "flake8>=6.1.0",
+    "pylint>=3.0.3",
+    "mypy>=1.7.1",
+    "pre-commit>=3.6.0",
+]
+docs = [
+    "mkdocs>=1.5.3",
+    "mkdocs-material>=9.4.8",
+]
+
+[project.urls]
+Homepage = "https://github.com/h-rishi16/quantitative-risk-platform"
+Documentation = "https://github.com/h-rishi16/quantitative-risk-platform/docs"
+Repository = "https://github.com/h-rishi16/quantitative-risk-platform"
+"Bug Tracker" = "https://github.com/h-rishi16/quantitative-risk-platform/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["backend*", "frontend*"]
+exclude = ["tests*"]
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+known_first_party = ["backend", "frontend"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "--strict-markers --strict-config --verbose"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[[tool.mypy.overrides]]
+module = ["streamlit.*", "plotly.*"]
+ignore_missing_imports = true
+
+[tool.coverage.run]
+source = ["backend", "frontend"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "*/__pycache__/*",
+    "*/.*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+]

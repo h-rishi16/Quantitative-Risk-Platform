@@ -1,0 +1,17 @@
+# Frontend dependencies
+streamlit==1.28.2
+plotly==5.17.0
+altair==5.2.0
+matplotlib==3.8.2
+seaborn==0.13.0
+
+# API client
+httpx==0.25.2
+aiohttp==3.9.1
+
+# Data visualization and tables
+streamlit-aggrid==0.3.4.post3
+streamlit-plotly-events==0.0.6
+
+# Include base requirements
+-r base.txt
