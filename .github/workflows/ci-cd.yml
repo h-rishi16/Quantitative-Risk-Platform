@@ -162,7 +162,7 @@ jobs:
       run: |
         curl -f http://localhost:8002/health || exit 1
     
-    - name: Run integration tests
+    - name: Run tests
       run: |
         pytest tests/ -v
     
