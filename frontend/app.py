@@ -3,6 +3,7 @@ Streamlit Frontend Application for Risk Modeling Platform with File Upload
 """
 
 import json
+import os
 import time
 from typing import Dict, List
 
@@ -51,12 +52,18 @@ st.markdown(
 )
 
 
+def get_backend_url():
+    """Get backend URL from environment or use default"""
+    return os.getenv('BACKEND_URL', 'http://localhost:8002')
+
 def check_api_status():
     """Check if the backend API is running"""
     try:
-        response = requests.get("http://localhost:8002/health", timeout=2)
+        backend_url = get_backend_url()
+        response = requests.get(f"{backend_url}/health", timeout=5)
         return response.status_code == 200
-    except:
+    except Exception as e:
+        st.error(f"Backend connection error: {e}")
         return False
 
 
@@ -331,7 +338,8 @@ def run_monte_carlo_simulation(
         progress_bar.progress(50)
 
         # Call the API
-        api_url = "http://localhost:8002/monte_carlo_var"
+        backend_url = get_backend_url()
+        api_url = f"{backend_url}/monte_carlo_var"
         response = requests.post(api_url, json=api_data, timeout=60)
 
         progress_bar.progress(75)
@@ -458,7 +466,8 @@ def api_testing():
     # Health check
     if st.button("Test Health Endpoint"):
         try:
-            response = requests.get("http://localhost:8002/health")
+            backend_url = get_backend_url()
+            response = requests.get(f"{backend_url}/health")
             if response.status_code == 200:
                 st.success("SUCCESS: API Health Check Passed")
                 st.json(response.json())
@@ -470,7 +479,8 @@ def api_testing():
     # Sample data endpoint
     if st.button("Get Sample Data"):
         try:
-            response = requests.get("http://localhost:8002/sample_data")
+            backend_url = get_backend_url()
+            response = requests.get(f"{backend_url}/sample_data")
             if response.status_code == 200:
                 st.success("SUCCESS: Sample data retrieved")
                 data = response.json()
@@ -498,8 +508,9 @@ def api_testing():
 
     if st.button("Test with Sample JSON"):
         try:
+            backend_url = get_backend_url()
             response = requests.post(
-                "http://localhost:8002/monte_carlo_var", json=sample_json, timeout=30
+                f"{backend_url}/monte_carlo_var", json=sample_json, timeout=30
             )
             if response.status_code == 200:
                 st.success("SUCCESS: Monte Carlo API test successful")

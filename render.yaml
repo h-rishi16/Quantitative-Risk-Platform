@@ -7,3 +7,5 @@ services:
     envVars:
       - key: PYTHONPATH
         value: /opt/render/project/src
+      - key: BACKEND_URL
+        value: https://your-backend-url.onrender.com
