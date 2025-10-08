@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: quantitative-risk-platform-docker
+    env: docker
+    dockerfilePath: ./Dockerfile.streamlit
+    dockerContext: .
+    envVars:
+      - key: PYTHONPATH
+        value: /app
+      - key: BACKEND_URL
+        value: https://your-backend-url.onrender.com
+      - key: PORT
+        value: 8501
