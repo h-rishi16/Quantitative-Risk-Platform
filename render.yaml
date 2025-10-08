@@ -2,7 +2,7 @@ services:
   - type: web
     name: quantitative-risk-platform
     env: python
-    build: pip install -r requirements-minimal.txt
+    build: pip install -r requirements-render.txt
     start: streamlit run frontend/app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
     envVars:
       - key: PYTHONPATH
