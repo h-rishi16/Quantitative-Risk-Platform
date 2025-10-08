@@ -1,0 +1,17 @@
+# Streamlit App Requirements - Minimal Dependencies for Deployment
+
+# Core Web Framework
+streamlit==1.28.1
+plotly==5.17.0
+requests==2.31.0
+
+# Mathematical and Data Processing
+numpy==1.24.3
+pandas==2.1.3
+scipy==1.11.4
+
+# API and Data Validation (needed for app functionality)
+pydantic==2.5.0
+
+# Environment Handling
+python-dotenv==1.0.0
