@@ -1,3 +1,8 @@
+# Essential build tools (must be first for Python 3.13)
+setuptools>=65.0.0
+wheel>=0.38.0
+pip>=22.0.0
+
 # Render-Compatible Requirements (No Rust dependencies)
 streamlit==1.28.1
 plotly==5.17.0

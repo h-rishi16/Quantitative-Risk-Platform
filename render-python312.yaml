@@ -1,9 +1,10 @@
 services:
   - type: web
-    name: quantitative-risk-platform
+    name: quantitative-risk-platform-stable
     env: python
+    runtime: python-3.12
     build: |
-      pip install --upgrade pip setuptools wheel
+      python -m pip install --upgrade pip setuptools wheel
       pip install -r requirements-render.txt
     start: streamlit run frontend/app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
     envVars:
@@ -11,3 +12,5 @@ services:
         value: /opt/render/project/src
       - key: BACKEND_URL
         value: https://your-backend-url.onrender.com
+      - key: PYTHON_VERSION
+        value: "3.12"
