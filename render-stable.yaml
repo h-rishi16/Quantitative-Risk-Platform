@@ -15,22 +15,6 @@ services:
       python -m pip install --upgrade --no-cache-dir setuptools>=75.1.0 wheel>=0.44.0
       
       # Install requirements
-      pip install --no-cache-dir -r requirements-render.txt: web
-    name: quantitative-risk-platform-v2
-    env: python
-    runtime: python-3.12.6  # Force specific Python 3.12 version
-    build: |
-      # Ensure we're using Python 3.12
-      python --version
-      
-      # Clean pip cache to avoid conflicts
-      pip cache purge || true
-      
-      # Upgrade core build tools
-      python -m pip install --upgrade --no-cache-dir pip==23.3.2
-      python -m pip install --upgrade --no-cache-dir setuptools==69.0.3 wheel==0.42.0
-      
-      # Install requirements
       pip install --no-cache-dir -r requirements-render.txt
       
     start: streamlit run frontend/app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
