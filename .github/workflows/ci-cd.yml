@@ -50,15 +50,15 @@ jobs:
         python -m pip install --upgrade "wheel>=0.41.0"
         python -m pip install --upgrade build
     
-    - name: Install mathematical libraries first (use pre-built wheels)
-      run: |
-        python -m pip install --only-binary=all "numpy>=1.24.0,<1.25.0"
-        python -m pip install --only-binary=all "pandas>=2.1.0,<2.2.0" 
-        python -m pip install --only-binary=all "scipy>=1.11.0,<1.12.0"
-    
-    - name: Install core dependencies
+    - name: Install all dependencies
       run: |
         python -m pip install -r requirements.txt
+    
+    - name: Verify critical dependencies
+      run: |
+        python -c "import requests; print(f'requests version: {requests.__version__}')"
+        python -c "import fastapi; print(f'fastapi version: {fastapi.__version__}')"
+        python -c "import pytest; print(f'pytest version: {pytest.__version__}')"
     
     - name: Install development dependencies
       run: |
