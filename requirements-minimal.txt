@@ -1,0 +1,9 @@
+# Minimal Streamlit Cloud Requirements
+streamlit
+plotly
+requests
+numpy
+pandas
+scipy
+pydantic
+python-dotenv
