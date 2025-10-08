@@ -54,7 +54,8 @@ st.markdown(
 
 def get_backend_url():
     """Get backend URL from environment or use default"""
-    return os.getenv('BACKEND_URL', 'http://localhost:8002')
+    return os.getenv("BACKEND_URL", "http://localhost:8002")
+
 
 def check_api_status():
     """Check if the backend API is running"""
