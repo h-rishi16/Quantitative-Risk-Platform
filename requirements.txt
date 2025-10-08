@@ -1,47 +1,46 @@
-# Quantitative Risk Modeling Platform - Dependencies
+# Quantitative Risk Modeling Platform - Python 3.13.7 Compatible
 
-# Core Web Framework (Streamlit Cloud Compatible)
-streamlit>=1.25.0
-plotly>=5.15.0
-requests>=2.28.0
+# Essential build tools
+setuptools>=75.0.0
+wheel>=0.43.0
+pip>=25.2
 
-# Mathematical and Data Processing (Version ranges for compatibility)
-numpy>=1.21.0,<2.0.0
-pandas>=1.5.0,<3.0.0
-scipy>=1.9.0,<2.0.0
+# Core Web Framework
+streamlit>=1.39.0
+plotly>=5.17.0
+requests>=2.31.0
 
-# API and Data Validation
-pydantic>=1.10.0,<3.0.0
-
-# Environment Handling
-python-dotenv>=0.19.0
-
-# Additional backend dependencies (for local development)
-fastapi>=0.100.0
-uvicorn[standard]>=0.20.0
+# Mathematical and Data Processing (Python 3.13 compatible)
+numpy>=1.26.0,<3.0.0
+pandas>=2.1.0,<3.0.0
+scipy>=1.11.0,<2.0.0
 
 # API and Data Validation
-pydantic==2.5.0
-python-multipart==0.0.6
+pydantic>=2.5.0,<3.0.0
+python-multipart>=0.0.6
 
 # Environment and File Handling
-python-dotenv==1.0.0
-aiofiles==23.2.1
+python-dotenv>=1.0.0
+aiofiles>=23.2.0
+
+# Backend dependencies
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
 
 # Development and Testing Dependencies
-pytest==7.4.3
-pytest-cov==4.1.0
-pytest-asyncio==0.21.1
-httpx==0.25.2
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-asyncio>=0.21.0
+httpx>=0.25.0
 
 # Code Quality Tools
-black==23.9.1
-isort==5.12.0
-flake8==6.0.0
+black>=23.9.0
+isort>=5.12.0
+flake8>=6.0.0
 
 # Security Tools
-bandit==1.7.5
-safety==2.3.4
+bandit>=1.7.0
+safety>=2.3.0
 
 # Coverage and Analysis
-coverage==7.3.2
+coverage>=7.3.0

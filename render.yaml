@@ -2,7 +2,9 @@ services:
   - type: web
     name: quantitative-risk-platform
     env: python
+    runtime: python-3.13.1
     build: |
+      python --version
       pip install --upgrade pip setuptools wheel
       pip install -r requirements-render.txt
     start: streamlit run frontend/app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true

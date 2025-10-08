@@ -3,7 +3,11 @@ services:
   - type: web
     name: risk-platform-api
     env: python
-    build: pip install -r requirements.txt
+    runtime: python-3.13.1
+    build: |
+      python --version
+      pip install --upgrade pip setuptools wheel
+      pip install -r requirements-render.txt
     start: python -m uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHONPATH
@@ -15,7 +19,9 @@ services:
   - type: web
     name: risk-platform-frontend
     env: python
+    runtime: python-3.13.1
     build: |
+      python --version
       pip install --upgrade pip setuptools wheel
       pip install -r requirements-render.txt
     start: streamlit run frontend/app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
