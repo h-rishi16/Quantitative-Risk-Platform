@@ -22,3 +22,5 @@ This is a comprehensive quantitative risk modeling platform for the banking sect
 - Implement comprehensive error handling and logging
 - Follow banking industry risk management best practices
 - Ensure scalability and performance optimization for large portfolios
+- Maintain professional code standards and documentation
+- Use conventional commit message format for all changes
