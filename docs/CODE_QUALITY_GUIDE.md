@@ -51,19 +51,19 @@ When you push code, GitHub Actions automatically:
 
 1. **1. Sets up Python 3.11 environment**
 2. **2. Installs all dependencies**
-3. **🧹 Checks code formatting** (Black & isort)
-4. **🔍 Runs linting** (flake8)
-5. **🧪 Runs unit tests** (pytest)
+3. **3. Checks code formatting** (Black & isort)
+4. **4. Runs linting** (flake8)
+5. **5. Runs unit tests** (pytest)
 6. **- Passes = Ready for deployment**
-7. **❌ Fails = Fix issues and try again**
+7. **7. Fails = Fix issues and try again**
 
 ## Benefits of This Approach
 
-- **🚀 Professional code quality** standards
+- **Professional code quality** standards
 - **🤝 Consistent formatting** across the team
 - **🐛 Catches issues early** before deployment
-- **📈 Maintainable codebase** over time
-- **⚡ Deployment confidence** - if CI passes, it works
+- **Maintainable codebase** over time
+- **Deployment confidence** - if CI passes, it works
 
 ## Troubleshooting
 
@@ -84,4 +84,4 @@ git commit -m "urgent fix" --no-verify
 **Important**: Code formatting does **NOT** affect your app's functionality on Render. It's purely for code quality and team collaboration. Your app will deploy and run perfectly regardless of formatting - the CI/CD is just ensuring professional standards.
 
 ---
-*This workflow ensures your quantitative risk platform maintains enterprise-level code quality! 🎯*
+*This workflow ensures your quantitative risk platform maintains enterprise-level code quality! *

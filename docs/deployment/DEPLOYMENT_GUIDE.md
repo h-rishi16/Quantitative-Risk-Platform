@@ -1,6 +1,6 @@
 # Full Stack Deployment Guide for Render
 
-## 🚀 Deploy Backend + Frontend on Render
+## Deploy Backend + Frontend on Render
 
 ### Step 1: Deploy Backend API
 
@@ -43,17 +43,17 @@
    Key: BACKEND_URL
    Value: https://risk-platform-api.onrender.com
    ```
-   ⚠️ **Important**: Replace with your actual backend URL from Step 1!
+   WARNING: **Important**: Replace with your actual backend URL from Step 1!
 
 4. **Deploy** and wait for build to complete
 
 ### Step 3: Test the Connection
 
 1. Visit your frontend URL
-2. Should show "✅ Backend API Connected" if working
+2. Should show "Backend API Connected" if working
 3. Try the Monte Carlo simulation to test full functionality
 
-## 🎯 Alternative: Single Service Deployment
+## Alternative: Single Service Deployment
 
 If you prefer one service, use the standalone version:
 
@@ -63,7 +63,7 @@ If you prefer one service, use the standalone version:
    Start Command: streamlit run frontend/app_standalone.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
    ```
 
-## 📋 Quick Reference
+## Quick Reference
 
 ### Backend URL Examples:
 - Render: `https://your-service-name.onrender.com`  
@@ -76,7 +76,7 @@ BACKEND_URL=https://your-backend-service-url
 PYTHONPATH=/opt/render/project/src
 ```
 
-## 🛠️ Troubleshooting
+## Troubleshooting
 
 ### Build Issues
 

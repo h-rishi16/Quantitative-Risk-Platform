@@ -140,7 +140,7 @@ Production Environment Variables:
 ### **Other Platform Support**
 - **Docker**: Container-ready configurations
 - **Heroku**: Compatible with minor config changes
-- **AWS/GCP**: Scalable cloud deployment options## 📁 Project Structure
+- **AWS/GCP**: Scalable cloud deployment options## Project Structure
 ```
 ├── backend/           # FastAPI backend services
 ├── frontend/          # Streamlit frontend application  
@@ -169,7 +169,7 @@ Production Environment Variables:
 - [`docs/API.md`](docs/API.md) - API reference
 - [`docs/USER_GUIDE.md`](docs/USER_GUIDE.md) - User guide
 
-## 🧪 Testing
+## Testing
 
 ```bash
 pytest --cov=backend --cov=frontend
