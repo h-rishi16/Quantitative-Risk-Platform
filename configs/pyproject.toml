@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "quantitative-risk-platform"
-version = "1.0.0"
+version = "1.0.1"
 description = "A comprehensive quantitative risk modeling platform for the banking sector"
 readme = "README.md"
 authors = [
