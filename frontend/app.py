@@ -17,7 +17,6 @@ import streamlit as st
 # Configure page
 st.set_page_config(
     page_title="Quantitative Risk Platform",
-    page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -143,7 +142,7 @@ def risk_dashboard():
 
 def monte_carlo_simulation():
     """Monte Carlo simulation page with file upload and real API integration"""
-    st.header("🎲 Monte Carlo Simulation")
+    st.header("Monte Carlo Simulation")
 
     st.markdown(
         """
@@ -156,7 +155,7 @@ def monte_carlo_simulation():
     )
 
     # File upload section
-    st.subheader("📁 Upload Portfolio Data")
+    st.subheader("Upload Portfolio Data")
 
     # Create two columns for file uploads
     upload_col1, upload_col2 = st.columns(2)
@@ -232,7 +231,7 @@ AAPL,0.40
 GOOGL,0.30
 MSFT,0.30"""
         st.download_button(
-            label="📥 Download Sample Portfolio",
+            label="Download Sample Portfolio",
             data=sample_portfolio,
             file_name="portfolio_weights.csv",
             mime="text/csv",
@@ -248,14 +247,14 @@ MSFT,0.30"""
             ) as f:
                 sample_returns = f.read()
             st.download_button(
-                label="📥 Download Sample Returns",
+                label="Download Sample Returns",
                 data=sample_returns,
                 file_name="historical_returns.csv",
                 mime="text/csv",
                 help="Download sample historical returns CSV",
             )
         except:
-            st.button("📥 Sample Returns (unavailable)", disabled=True)
+            st.button("Sample Returns (unavailable)", disabled=True)
 
     # Only show simulation parameters if files are uploaded
     if portfolio_file and returns_file:
@@ -298,7 +297,7 @@ MSFT,0.30"""
 
     else:
         st.info(
-            "📁 Please upload both portfolio weights and historical returns files to proceed."
+            "Please upload both portfolio weights and historical returns files to proceed."
         )
 
 

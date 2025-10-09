@@ -201,13 +201,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test, security, integration-test]
     if: github.ref == 'refs/heads/develop'
-    environment: staging
     
     steps:
     - uses: actions/checkout@v4
     
     - name: Deploy to staging
-      run: |
+      run: 
         echo "Deploying to staging environment..."
         # Add your staging deployment commands here
 
