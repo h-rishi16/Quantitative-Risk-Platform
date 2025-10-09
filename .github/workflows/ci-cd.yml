@@ -34,6 +34,7 @@ jobs:
       run: |
         echo "PIP_NO_BUILD_ISOLATION=False" >> $GITHUB_ENV
         echo "PIP_DISABLE_PIP_VERSION_CHECK=1" >> $GITHUB_ENV
+        echo "PYTHONUNBUFFERED=1" >> $GITHUB_ENV
     
     - name: Cache pip dependencies
       uses: actions/cache@v4
