@@ -90,13 +90,13 @@ and improved random number generation.
 ### Poor Examples (Avoid These)
 
 ```
-❌ "Fixed stuff"
-❌ "WIP"
-❌ "Update file.py"
-❌ "🚀 Add new feature"
-❌ "FINAL VERSION"
-❌ "asdf"
-❌ "Merge branch 'feature'"
+BAD: "Fixed stuff"
+BAD: "WIP"
+BAD: "Update file.py"
+BAD: "Add new feature"
+BAD: "FINAL VERSION"
+BAD: "asdf"
+BAD: "Merge branch 'feature'"
 ```
 
 ## Quick Reference
