@@ -12,6 +12,8 @@ services:
     envVars:
       - key: PYTHONPATH
         value: /opt/render/project/src
+      - key: LOG_LEVEL
+        value: INFO
     healthCheckPath: /health
     
   # Frontend Streamlit Service  
