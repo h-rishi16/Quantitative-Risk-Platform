@@ -30,6 +30,6 @@ git fac "Work in progress on portfolio analysis"
 
 1. **Make code changes**
 2. **Run**: `git qc "Your commit message"`
-3. **Done!** ✅ CI/CD will pass
+3. **Done!** CI/CD will pass
 
-This makes maintaining code quality effortless while keeping all the benefits of professional CI/CD! 🚀
+This makes maintaining code quality effortless while keeping all the benefits of professional CI/CD! 

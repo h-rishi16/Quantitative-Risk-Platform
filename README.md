@@ -1,10 +1,10 @@
-# 🏦 Quantitative Risk Modeling Platform
+# Quantitative Risk Modeling Platform
 
 A comprehensive quantitative risk modeling platform for the banking sector built with Python, FastAPI, and Streamlit. This platform provides advanced risk analytics, Monte Carlo simulations, and portfolio management tools used in modern quantitative finance.
 
-## 🌐 **Live Application**
+## **Live Application**
 
-### **[🚀 Try the Live Demo](https://risk-platform-frontend.onrender.com)**
+### **[Try the Live Demo](https://risk-platform-frontend.onrender.com)**
 
 Experience the full quantitative risk modeling platform featuring:
 - **Portfolio Risk Analysis** with real-time calculations
@@ -13,12 +13,12 @@ Experience the full quantitative risk modeling platform featuring:
 - **CSV File Upload** for portfolio data analysis
 - **Stress Testing** and scenario analysis tools
 
-### **[📊 API Documentation](https://risk-platform-api.onrender.com/docs)**
+### **[API Documentation](https://risk-platform-api.onrender.com/docs)**
 Complete FastAPI documentation with interactive endpoint testing
 
 ---
 
-## 🎯 **Key Features**
+## **Key Features**
 
 ### **Risk Analytics Engine**
 - **Value at Risk (VaR)** calculations using multiple methodologies
@@ -41,7 +41,7 @@ Complete FastAPI documentation with interactive endpoint testing
 - **Health monitoring** and error handling
 - **CORS support** for web integration
 
-## 📋 Features
+## Features
 
 - **Value at Risk (VaR)** calculations using multiple methodologies
 - **Conditional VaR (Expected Shortfall)** analysis
@@ -50,7 +50,7 @@ Complete FastAPI documentation with interactive endpoint testing
 - **Real-time risk monitoring** and visualization
 - **Stress testing** and scenario analysis
 
-## 🏗️ **Architecture**
+## **Architecture**
 
 ### **Technology Stack**
 - **Backend**: FastAPI with advanced mathematical models
@@ -66,7 +66,7 @@ Complete FastAPI documentation with interactive endpoint testing
 - **Scalable deployment** on cloud infrastructure
 - **Professional logging** and error handling
 
-## 🚀 **Local Development**
+## **Local Development**
 
 ### **Prerequisites**
 - Python 3.9+ (3.13.1 recommended)
@@ -109,7 +109,7 @@ git commit -m "Your message"
 git push origin main
 ```
 
-## 🌐 **Production Deployment**
+## **Production Deployment**
 
 ### **Current Live Deployment**
 - **Platform**: Render (Professional Cloud Hosting)
@@ -119,7 +119,7 @@ git push origin main
 
 ### **Deployment Configurations**
 
-**✅ Two Services (Current Production Setup)**
+**Two Services (Current Production Setup):**
 - **API Service**: Dedicated FastAPI backend
 - **Frontend Service**: Streamlit user interface
 - **Benefits**: Better scaling, resource isolation, professional setup
@@ -175,7 +175,7 @@ Production Environment Variables:
 pytest --cov=backend --cov=frontend
 ```
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License.
 
@@ -190,4 +190,4 @@ This project is licensed under the MIT License.
 
 ---
 
-**Built with ❤️ for quantitative finance and risk management**
+**Built for quantitative finance and risk management**

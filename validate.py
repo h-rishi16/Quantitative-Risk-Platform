@@ -12,7 +12,7 @@ sys.path.append(project_root)
 
 def test_imports():
     """Test all critical imports"""
-    print("🧪 Testing imports...")
+    print("Testing imports...")
     
     # Test basic dependencies
     try:
@@ -21,34 +21,34 @@ def test_imports():
         import pandas 
         import plotly
         import requests
-        print("✅ Basic dependencies: OK")
+        print("PASS: Basic dependencies: OK")
     except ImportError as e:
-        print(f"❌ Basic dependencies failed: {e}")
+        print(f"FAIL: Basic dependencies failed: {e}")
         return False
     
     # Test backend imports
     try:
         from backend.risk_engines.monte_carlo import MonteCarloVaR, SimulationConfig
         from backend.data_processing.data_processor import DataProcessor
-        print("✅ Backend components: OK")
+        print("PASS: Backend components: OK")
     except ImportError as e:
-        print(f"❌ Backend components failed: {e}")
+        print(f"FAIL: Backend components failed: {e}")
         return False
         
     # Test API imports  
     try:
         from fastapi import FastAPI
         import uvicorn
-        print("✅ API components: OK")
+        print("PASS: API components: OK")
     except ImportError as e:
-        print(f"❌ API components failed: {e}")
+        print(f"FAIL: API components failed: {e}")
         return False
     
     return True
 
 def test_file_structure():
     """Test critical files exist"""
-    print("\n📁 Testing file structure...")
+    print("\nTesting file structure...")
     
     critical_files = [
         "frontend/app.py",
@@ -68,15 +68,15 @@ def test_file_structure():
             missing_files.append(file_path)
     
     if missing_files:
-        print(f"❌ Missing files: {missing_files}")
+        print(f"FAIL: Missing files: {missing_files}")
         return False
     else:
-        print("✅ All critical files present")
+        print("PASS: All critical files present")
         return True
 
 def test_syntax():
     """Test Python syntax of key files"""
-    print("\n🔍 Testing Python syntax...")
+    print("\nTesting Python syntax...")
     
     python_files = [
         "frontend/app.py",
@@ -89,19 +89,19 @@ def test_syntax():
         try:
             with open(full_path, 'r') as f:
                 compile(f.read(), full_path, 'exec')
-            print(f"✅ {file_path}: Syntax OK")
+            print(f"PASS: {file_path}: Syntax OK")
         except SyntaxError as e:
-            print(f"❌ {file_path}: Syntax error - {e}")
+            print(f"FAIL: {file_path}: Syntax error - {e}")
             return False
         except Exception as e:
-            print(f"❌ {file_path}: Error - {e}")
+            print(f"FAIL: {file_path}: Error - {e}")
             return False
     
     return True
 
 def main():
     """Run all validation tests"""
-    print("🚀 Quantitative Risk Platform - Deployment Validation")
+    print("Quantitative Risk Platform - Deployment Validation")
     print("=" * 60)
     
     success = True
@@ -111,8 +111,8 @@ def main():
     
     print("\n" + "=" * 60)
     if success:
-        print("🎉 All validation tests passed! Ready for deployment.")
-        print("\n📋 Next steps:")
+        print("All validation tests passed! Ready for deployment.")
+        print("\nNext steps:")
         print("   1. git add .")
         print("   2. git commit -m 'Ready for deployment'")
         print("   3. git push origin main")
@@ -120,7 +120,7 @@ def main():
         print("      - Single service: configs/render.yaml or configs/render-stable.yaml")
         print("      - Two services: configs/render-fullstack.yaml")
     else:
-        print("❌ Some validation tests failed. Please fix issues before deployment.")
+        print("FAIL: Some validation tests failed. Please fix issues before deployment.")
         sys.exit(1)
 
 if __name__ == "__main__":

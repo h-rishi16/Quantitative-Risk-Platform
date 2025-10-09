@@ -1,12 +1,12 @@
-# 🔧 Code Quality Workflow Guide
+# Code Quality Workflow Guide
 
 ## Why We Use Code Formatting
 
 Your project has **CI/CD (Continuous Integration)** set up to maintain high code quality. This automatically:
-- ✅ **Tests your code** when you push changes
-- ✅ **Checks formatting** with Black and isort  
-- ✅ **Runs linting** with flake8
-- ✅ **Prevents deployment** if code quality issues exist
+- - **Tests your code** when you push changes
+- - **Checks formatting** with Black and isort  
+- - **Runs linting** with flake8
+- - **Prevents deployment** if code quality issues exist
 
 ## Quick Workflow (Before Every Commit)
 
@@ -49,12 +49,12 @@ isort --check-only --diff --profile black .
 
 When you push code, GitHub Actions automatically:
 
-1. **🏗️ Sets up Python 3.11 environment**
-2. **📦 Installs all dependencies**
+1. **1. Sets up Python 3.11 environment**
+2. **2. Installs all dependencies**
 3. **🧹 Checks code formatting** (Black & isort)
 4. **🔍 Runs linting** (flake8)
 5. **🧪 Runs unit tests** (pytest)
-6. **✅ Passes = Ready for deployment**
+6. **- Passes = Ready for deployment**
 7. **❌ Fails = Fix issues and try again**
 
 ## Benefits of This Approach
