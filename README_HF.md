@@ -5,7 +5,7 @@ colorFrom: blue
 colorTo: green
 sdk: streamlit
 sdk_version: 1.28.1
-app_file: frontend/app.py
+app_file: frontend/app_standalone.py
 pinned: false
 license: mit
 ---

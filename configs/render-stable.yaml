@@ -15,14 +15,14 @@ services:
       python -m pip install --upgrade --no-cache-dir setuptools>=75.1.0 wheel>=0.44.0
       
       # Install requirements
-      pip install --no-cache-dir -r requirements-render.txt
+      pip install --no-cache-dir -r requirements/requirements-render.txt
       
-    start: streamlit run frontend/app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
+    start: ./start-render.sh
     envVars:
       - key: PYTHONPATH
         value: /opt/render/project/src
       - key: BACKEND_URL
-        value: https://your-backend-url.onrender.com
+        value: http://localhost:8002
       - key: PYTHON_VERSION
         value: "3.13.1"
       - key: PIP_NO_CACHE_DIR

@@ -7,13 +7,12 @@ services:
     build: |
       python --version
       pip install --upgrade pip setuptools wheel
-      pip install -r requirements-render.txt
+      pip install -r requirements/requirements-render.txt
     start: python -m uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHONPATH
         value: /opt/render/project/src
-      - key: PORT
-        value: 10000
+    healthCheckPath: /health
     
   # Frontend Streamlit Service  
   - type: web
@@ -23,7 +22,7 @@ services:
     build: |
       python --version
       pip install --upgrade pip setuptools wheel
-      pip install -r requirements-render.txt
+      pip install -r requirements/requirements-render.txt
     start: streamlit run frontend/app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
     envVars:
       - key: PYTHONPATH

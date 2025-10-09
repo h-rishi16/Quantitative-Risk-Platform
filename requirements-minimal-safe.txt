@@ -1,9 +1,0 @@
-# Absolute minimal requirements to avoid Python 3.13 issues
-streamlit==1.27.2
-plotly==5.16.1
-requests==2.31.0
-numpy==1.24.4
-pandas==2.0.3
-
-# Essential only - no complex dependencies
-python-dotenv==1.0.0

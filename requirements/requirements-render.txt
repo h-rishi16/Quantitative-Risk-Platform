@@ -19,6 +19,12 @@ scipy>=1.14.0
 pydantic>=2.10.0,<3.0.0
 python-dotenv>=1.0.1
 
+# Backend API Framework (needed if using app.py with backend)
+fastapi>=0.100.0
+uvicorn[standard]>=0.20.0
+python-multipart>=0.0.6
+aiofiles>=23.2.1
+
 # Updated packages for Python 3.13.1
 altair>=5.4.0,<6.0.0
 blinker>=1.8.0

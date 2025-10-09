@@ -17,7 +17,7 @@ import streamlit as st
 # Configure page
 st.set_page_config(
     page_title="Quantitative Risk Platform",
-    page_icon="�",
+    page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -26,12 +26,8 @@ st.set_page_config(
 st.markdown(
     """
 <style>
-    .main-heade                st.success("SUCCESS: Monte Carlo API test successful")
-                st.json(result)
-            else:
-                st.error(f"ERROR: API test failed: {response.status_code} - {response.text}")
-        except Exception as e:
-            st.error(f"ERROR: API test error: {e}")      font-size: 2.5rem;
+    .main-header {
+        font-size: 2.5rem;
         color: #1f77b4;
         text-align: center;
         margin-bottom: 2rem;
